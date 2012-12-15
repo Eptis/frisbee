@@ -1,2 +1,70 @@
-<html>
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Threesome Ultimate Frisbee - Game</title>
+		<link href='http://fonts.googleapis.com/css?family=Shadows+Into+Light+Two' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="css/screen.css" />
+    </head>
+    <body>
+		<div id="wrapper">
+            <header>
+                <h1><span>League:</span>AMSU - 12</h1>
+                <h1><span>Tournament:</span>Threesome</h1>
+            </header>
+
+            <article>
+                <header>
+                    <h1>Pool A - Score Updates - Boomsquad vs. Burning Snow</h1>
+                </header>
+                <section>
+                    <table id="game">
+                        <thead>
+                            <th>Team</th>
+                            <th>Result</th>
+                            <th>Team</th>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </section>
+                <section>
+                    <table id="sets">
+                        <thead>
+                            <th>Set</th>
+                            <th>Team</th>
+                            <th>Result</th>
+                            <th>Team</th>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </section>
+            </article>
+		</div>	
+       
+		
+        <script id="setTemplate" type="text/template">
+				<td><%= set %></td>
+				<td><%= team1 %></td>
+                <td><%= team1Score %> - <%= team2Score %></td>
+                <td><%= team2 %></td>
+        </script>
+		
+		<!-- Libraries -->
+        <script src="js/libs/jquery-1.7.1.min.js"></script>
+        <script src="js/libs/json2.js"></script>
+        <script src="js/libs/underscore-min.js"></script>
+        <script src="js/libs/backbone-min.js"></script>
+
+		<!-- Application -->
+        <script src="js/app/appGame.js"></script>
+   
+        <script src="js/app/models/set.js"></script>        
+        <script src="js/app/collections/game.js"></script>
+        <script src="js/app/views/set.js"></script>
+        <script src="js/app/views/game.js"></script>
+        
+    
+    </body>
 </html>
