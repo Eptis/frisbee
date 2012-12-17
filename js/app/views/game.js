@@ -1,9 +1,9 @@
 // Game view
-FED2.GameView = Backbone.View.extend({
+FED.GameView = Backbone.View.extend({
   el: $("#sets"),
 
   initialize: function (){
-    this.collection = new FED2.Game(FED2.gameData);
+    this.collection = new FED.Game(FED2.gameData);
     this.render(this.collection.models);
     // console.log("init Game view");
   },
@@ -51,7 +51,7 @@ FED2.GameView = Backbone.View.extend({
   },
 
   renderSet: function (set) {
-    var setView = new FED2.SetView({
+    var setView = new FED.SetView({
       model: set
     });
     this.$el.append(setView.render().el);
@@ -59,4 +59,4 @@ FED2.GameView = Backbone.View.extend({
 
 });
 // console.log("game/sets view has loaded!");
-var game_view = new FED2.GameView();
+var game_view = new FED.GameView();

@@ -1,5 +1,5 @@
 // define indvidual set view
-FED2.SetView = Backbone.View.extend({
+FED.SetView = Backbone.View.extend({
   tagName: "tr",
   template: $("#setTemplate").html(),
 
