@@ -3,7 +3,7 @@ FED.GameView = Backbone.View.extend({
   el: $("#sets"),
 
   initialize: function (){
-    this.collection = new FED.Game(FED2.gameData);
+    this.collection = new FED.Game(FED.gameData);
     this.render(this.collection.models);
     // console.log("init Game view");
   },
