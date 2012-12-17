@@ -1,5 +1,7 @@
 // # Define Pool collection #
-  Pool = Backbone.Collection.extend({
+  FED.Pool = Backbone.Collection.extend({
       // Specifiy model for this collection
-    model: Team
+    model: FED.Team
+
+    
 });

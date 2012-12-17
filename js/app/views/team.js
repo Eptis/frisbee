@@ -1,5 +1,5 @@
 // # Define team view #
-  TeamView = Backbone.View.extend({
+  FED.TeamView = Backbone.View.extend({
       // Define element (this.el)  
     tagName: "tr",
     

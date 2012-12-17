@@ -1,5 +1,7 @@
-﻿    // # Pool data #
-    poolData = [
+﻿var FED = FED || {};
+
+    // # Pool data #
+    FED.poolData = [
     { team: "Chasing", Win: "2", Lost: "2", Sw: "7", Sl: "9", Pw: "35", Pl: "39"},
     { team: "Boomsquad", Win: "2", Lost: "2", Sw: "9", Sl: "8", Pw: "36", Pl: "34"},
     { team: "Burning Snow", Win: "3", Lost: "1", Sw: "11", Sl: "4", Pw: "36", Pl: "23"},
