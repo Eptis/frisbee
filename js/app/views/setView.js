@@ -1,0 +1,32 @@
+// define individual Set view
+FED.setView = Backbone.View.extend({
+  tagName: "li",
+  template: $("#SetTemplate").html(),
+	
+	// Attach event handler to view elements
+	events: {
+    "click a.delete": "deleteSet"
+	},
+	
+	// Delete Set model
+	deleteSet: function (e) {
+		e.preventDefault();
+	    
+		var removedType = this.model.get("team1Score").toLowerCase();
+	    
+		this.model.destroy();
+    this.remove();
+	    
+		if (_.indexOf(FED.Game.getTypes(), removedType) === -1) {
+      FED.Game.$el.find("#filter select").children("[value='" + removedType + "']").remove();
+    }
+	},
+	
+	// Render view
+  render: function () {
+    var tmpl = _.template(this.template);;
+    $(this.el).html(tmpl(this.model.toJSON()));
+    // this.$el.html(tmpl(this.model.toJSON()));
+    return this;
+  }
+});

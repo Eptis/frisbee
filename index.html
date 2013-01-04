@@ -1,70 +1,85 @@
 ﻿<!DOCTYPE html>
+
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <title>Threesome Ultimate Frisbee - Game</title>
-		<link href='http://fonts.googleapis.com/css?family=Shadows+Into+Light+Two' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="css/screen.css" />
-    </head>
-    <body>
-		<div id="wrapper">
-            <header>
-                <h1><span>League:</span>AMSU - 12</h1>
-                <h1><span>Tournament:</span>Threesome</h1>
-            </header>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Backbone.js Web App</title>
+    <link rel="stylesheet" href="css/screen.css" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1 id="frisbee_game">Frisbee game</h1>
+      <article id="game">
+        <nav class="actions">
+          <ul>
+            <li id="filter">
+              <label>Show:</label>
+            </li>
+            <li><button id="showForm">Add new Set</button></li>
+          </ul>
+        </nav>
 
-            <article>
-                <header>
-                    <h1>Pool A - Score Updates - Boomsquad vs. Burning Snow</h1>
-                </header>
-                <section>
-                    <table id="game">
-                        <thead>
-                            <th>Team</th>
-                            <th>Result</th>
-                            <th>Team</th>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </section>
-                <section>
-                    <table id="sets">
-                        <thead>
-                            <th>Set</th>
-                            <th>Team</th>
-                            <th>Result</th>
-                            <th>Team</th>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </section>
-            </article>
-		</div>	
-       
-		
-        <script id="setTemplate" type="text/template">
-				<td><%= set %></td>
-				<td><%= team1 %></td>
-                <td><%= team1Score %> - <%= team2Score %></td>
-                <td><%= team2 %></td>
-        </script>
-		
-		<!-- Libraries -->
-        <script src="js/libs/jquery-1.7.1.min.js"></script>
-        <script src="js/libs/json2.js"></script>
-        <script src="js/libs/underscore-min.js"></script>
-        <script src="js/libs/backbone-min.js"></script>
+        <ul class="game">
+        </ul>
 
-		<!-- Application -->
-        <script src="js/app/appGame.js"></script>
-   
-        <script src="js/app/models/set.js"></script>        
-        <script src="js/app/collections/game.js"></script>
-        <script src="js/app/views/set.js"></script>
-        <script src="js/app/views/game.js"></script>
-        
-    
-    </body>
+        <div class="clearboth"></div>
+
+        <ul class="sets">
+        </ul>
+
+        <form id="addSet" action="#" class="form-2">
+          <h1>Add Set</h1>
+          <label for="set">set:</label>
+          <input id="set" placeholder="set" type="text" />
+
+          <label for="team1">team1:</label>
+          <input id="team1" placeholder="team 1" type="text" />
+          
+          <label for="team1Score">team 1 score:</label>
+          <input id="team1Score"  placeholder="team 1 score" type="text" />
+
+          <label for="team2">team2:</label>
+          <input id="team2" placeholder="team 2" type="text" />
+          
+          <label for="team2Score">team 2 score:</label>
+          <input id="team2Score"  placeholder="team 2 score" type="text" />
+          
+          <div class="clearfix">
+            <input type="submit" id="add" value="Add" />
+          </div>
+        </form>
+      </article>
+
+    </div>
+
+
+    <script id="SetTemplate" type="text/template">
+      <span><%= set %></span>
+      <span><%= team1 %></span>
+      <span><%= team1Score %></span>
+       - 
+      <span><%= team2Score %></span>
+      <span><%= team2 %></span>
+      
+      <span><a href="#" class="delete">Delete</a></span>
+      
+    </script>
+
+    <!-- Libraries -->
+    <script src="js/libs/jquery-1.7.1.min.js"></script>
+    <script src="js/libs/json2.js"></script>
+    <script src="js/libs/underscore-min.js"></script>
+    <script src="js/libs/backbone-min.js"></script>
+
+    <!-- Application -->
+    <script src="js/app/appGame.js"></script>
+    <script src="js/app/models/setModel.js"></script>
+    <script src="js/app/collections/gameCollection.js"></script>
+    <script src="js/app/views/setView.js"></script>
+    <script src="js/app/views/gameView.js"></script>
+
+
+  </body>
 </html>
