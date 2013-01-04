@@ -6,6 +6,10 @@
     line-height: 140%;
 
 }
+
+
+
+
 body > header{
 	background-color: rgba(100, 200, 100, 0.4);
 	text-align: center;
@@ -43,4 +47,8 @@ pre, pre header{
 	background-color: rgba(0, 0, 0, 0.1);
 	font-size: 80%;
 	line-height: 100%;
+}
+
+.form-2 {
+	display: none;
 }

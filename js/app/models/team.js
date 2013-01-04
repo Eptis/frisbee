@@ -3,12 +3,12 @@
     // Set model defaults *(backbone method)*
     defaults: {
       "team": "Teamnaam onbekend",
-      "Win":"onbekend",
-      "Lost":"onbekend",
-      "Sw":"onbekend",
-      "Sl":"onbekend",
-      "Pw":"onbekend",
-      "Pl":"onbekend"
+      "Win":"0",
+      "Lost":"0",
+      "Sw":"0",
+      "Sl":"0",
+      "Pw":"0",
+      "Pl":"0"
     },
     initialize: function () {
       // console.log("team model init")

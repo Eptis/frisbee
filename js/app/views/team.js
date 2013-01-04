@@ -5,20 +5,30 @@
     
     // Set reference to template
       template: $("#teamTemplate").html(),
-    
-    // Initialize view *(backbone method)*
-    initialize: function () {
-      console.log("team view init");
-    },
-    
-    // Render view *(backbone method)*
-      render: function () {
-      // Store template in variable
-          var tmpl = _.template(this.template);
+
+  events: {
+      "click a.delete": "deleteTeam"
+  },
+
+  // Delete team model
+  deleteTeam: function (e) {
+    e.preventDefault();
       
-      // Inject the rendered template into the views element 
-          $(this.el).html(tmpl(this.model.toJSON()));
-  
-      return this;
-      }    
-  });
+    var removedType = this.model.get("Win").toLowerCase();
+      
+    this.model.destroy();
+      this.remove();
+      
+    if (_.indexOf(FED.pool.getTypes(), removedType) === -1) {
+          FED.pool.$el.find("#filter select").children("[value='" + removedType + "']").remove();
+      }
+  },
+    
+     
+  // Render view
+    render: function () {
+        var tmpl = _.template(this.template);;
+        this.$el.html(tmpl(this.model.toJSON()));
+        return this;
+    }
+});
