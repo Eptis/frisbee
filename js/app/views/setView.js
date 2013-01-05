@@ -12,10 +12,14 @@ FED.setView = Backbone.View.extend({
 	deleteSet: function (e) {
 		e.preventDefault();
 	    
-		var removedType = this.model.get("team1Score").toLowerCase();
+		var removedType = this.model.get("team1").toLowerCase();
 	    
 		this.model.destroy();
     this.remove();
+
+    /*console.log(FED.Game.getTypes());
+    console.log(_.indexOf(FED.Game.getTypes()));
+    console.log(removedType);*/
 	    
 		if (_.indexOf(FED.Game.getTypes(), removedType) === -1) {
       FED.Game.$el.find("#filter select").children("[value='" + removedType + "']").remove();

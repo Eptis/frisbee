@@ -53,12 +53,15 @@ FED.gameView = Backbone.View.extend({
       }
     });
     FED.gameData.push(newModel);
-    if (_.indexOf(this.getTypes(), newModel.team1Score) === -1) {
+    if (_.indexOf(this.getTypes(), newModel.team1) === -1) {
       this.collection.add(new FED.Set(newModel));
       this.$el.find("#filter").find("select").remove().end().append(this.createSelect());
     } else {
       this.collection.add(new FED.Set(newModel));
     }
+    // re-render list
+    // this.render();
+    this.collection.reset(FED.gameData);
 	},
 	
 	// Remove Set model
@@ -71,14 +74,24 @@ FED.gameView = Backbone.View.extend({
     });
 	},
 
-	// Get types for team1Score select box
-	getTypes: function () {
-    return _.uniq(this.collection.pluck("team1Score"), false, function (type) {
-      return type.toLowerCase();
-    });
-	},
+	// Get types for set select box
+	/*getTypes: function () {
+      return _.uniq(this.collection.pluck("team1"), false, function (type) {
+          return type.toLowerCase();
+      });
+  },*/
+
+  getTypes: function () {
+      // console.log(this.collection.pluck("team1"));
+      types = [];
+      _.each(this.collection.pluck("team1"), function (item) {
+        types.push(item.toLowerCase());
+      });
+
+      return _.uniq(types);
+  },
 	
-	// Create team1Score select box
+	// Create team1 select box
 	createSelect: function () {
     var filter = this.$el.find("#filter"),
       select = $("<select/>", {
@@ -109,7 +122,7 @@ FED.gameView = Backbone.View.extend({
       this.collection.reset(FED.gameData, { silent: true });
       var filterType = this.filterType,
         filtered = _.filter(this.collection.models, function (item) {
-        return item.get("team1Score").toLowerCase() === filterType;
+        return item.get("team1").toLowerCase() === filterType;
       });
       this.collection.reset(filtered);
     }
