@@ -8,7 +8,9 @@
 }
 
 
-
+ul {
+	list-style-type: none;
+}
 
 body > header{
 	background-color: rgba(100, 200, 100, 0.4);

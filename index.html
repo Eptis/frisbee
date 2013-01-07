@@ -15,7 +15,7 @@
         <nav class="actions">
                     <ul>
                         <li id="filter">
-                            <label>Show:</label>
+                            <label>Show wins:</label>
                             
                         </li>
                         <li><button id="showForm">Add new team</button></li>
@@ -26,11 +26,11 @@
 
         <form id="addTeam" action="#" class="form-2">
                     <h1>Add team</h1>
-                    <label for="team">Team</label><input id="team" placeholder="Team naam" type="text" />
+                    <label for="team">Team</label><input id="team" placeholder="Team name" type="text" />
                     <div class="clearfix"><input type="submit" id="add" value="Add" /></div>
                 </form>
             
-            <h1 id="frisbee_ranking">Frisbee - ranking</h1>
+            <h1>Frisbee - ranking</h1>
             <table>
                 <tr>
                     <th>Team</th>
@@ -49,7 +49,7 @@
 
     </article>
         
-    
+    <!-- Micro template -->
         <script id="teamTemplate" type="text/template">             
             <td><%= team %></td>
             <td><%= Win %></td>
@@ -69,9 +69,9 @@
 
     <!-- Application -->
         <script src="js/app/appRanking.js"></script>
-        <script src="js/app/models/team.js"></script>
-        <script src="js/app/collections/pool.js"></script>
-        <script src="js/app/views/team.js"></script>
-        <script src="js/app/views/pool.js"></script>
+        <script src="js/app/models/teamModel.js"></script>
+        <script src="js/app/collections/poolCollection.js"></script>
+        <script src="js/app/views/teamView.js"></script>
+        <script src="js/app/views/poolView.js"></script>
     </body>
 </html>
