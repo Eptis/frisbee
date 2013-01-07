@@ -1,10 +1,4 @@
-<<<<<<< HEAD
-// # Define tournament view #
-MatchView = Backbone.View.extend({
-    tagName: "tr",
-    template: $("#matchesTemplate").html(),
 
-=======
 // # Define Match view #
 FED.MatchView = Backbone.View.extend({
     tagName: "tr",
@@ -29,7 +23,6 @@ FED.MatchView = Backbone.View.extend({
       }
   },
 
->>>>>>> dennis
     render: function () {
         var tmpl = _.template(this.template);
 
