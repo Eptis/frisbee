@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 ﻿.contact-container { width:400px; padding:10px; border:1px solid #aaa; margin:0 10px 10px 0; float:left; font-family:sans-serif; color:#333; background-color:#eee; }
 .contact-container h1 { margin:0; font-weight:normal; }
 .contact-container h1 span { float:right; font-size:14px; line-height:24px; font-weight:normal; }
@@ -9,7 +8,6 @@
 .contact-container dl { margin:0; float:left; font-size:14px; }
 .contact-container dt, .contact-container dd { margin:0; float:left; }
 .contact-container dt { width:50px; clear:left; }
-=======
 ﻿* {
 	margin:0;
 	padding:0;
@@ -159,4 +157,3 @@ ul.sets li:hover .delete {
 
 .form-add input.score { display: block; width: 78px!important; }
 
->>>>>>> origin/jeroen
