@@ -1,9 +1,4 @@
 // # Define schedule collection #
-<<<<<<< HEAD
-Matches = Backbone.Collection.extend({
-    // Specifiy model for this collection
-    model: Match
-=======
 FED.Matches = Backbone.Collection.extend({
     // Specifiy model for this collection
     model: FED.Match,
@@ -23,7 +18,5 @@ FED.Matches = Backbone.Collection.extend({
     comparator : function(matches) {
       return matches.get("date");
     }
-
->>>>>>> dennis
 });
 

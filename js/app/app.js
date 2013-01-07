@@ -1,9 +1,5 @@
 // Tournament data
-<<<<<<< HEAD
-matchesData = [
-=======
 FED.matchesData = [
->>>>>>> dennis
     { date: "Monday, 9:00am", team1: "Chasing", team1Score: "3", team2: "Amsterdam Money Gang", team2Score: "1"},
         { date: "Monday, 9:00am", team1: "Boomsquad", team1Score: "3", team2: "Beast Amsterdam", team2Score: "0"},
         { date: "Monday, 10:00am", team1: "Beast Amsterdam", team1Score: "3", team2: "Amsterdam Money Gang", team2Score: "0"},
@@ -18,9 +14,5 @@ FED.matchesData = [
 
 // Kickstart the application by creating an instance of MatchesView
 $(document).ready(function(){
-<<<<<<< HEAD
-    var matches = new MatchesView();
-=======
     FED.matches = new FED.MatchesView();
->>>>>>> dennis
 })
