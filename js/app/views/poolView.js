@@ -2,17 +2,17 @@
 FED.PoolView = Backbone.View.extend({
     el: $("#pool"),
 
+    //Voert de onderstaande code uit wanneer de View wordt aangemaakt
     initialize: function () {
     this.list = this.$el.find("tbody.pool_list");
         this.collection = new FED.Pool(FED.poolData);
     
-    //this.render(this.collection.models);
     this.render();
     
     this.$el.find("#filter").append(this.createSelect());
 
     // Attach custom event handler
-    this.on("change:filterType", this.filterByType, this);
+    this.on("change:filterWin", this.filterByWin, this);
 
     // Attach eventhandlers to collection
     this.collection.on("reset", this.render, this);
@@ -22,7 +22,7 @@ FED.PoolView = Backbone.View.extend({
 
     // Attach event handlers to view elements
   events: {
-      "change #filter select": "setFilter",
+    "change #filter select": "setFilter",
     "click #add": "addTeam",
     "click #showForm": "showForm"
   },
@@ -40,7 +40,7 @@ FED.PoolView = Backbone.View.extend({
     
     // Render team *(custom method)*
       renderTeam: function (item) {
-      // Create new instance of TournamentView
+      // Create new instance of TeamView
       var teamView = new FED.TeamView({
               model: item
           });
@@ -59,7 +59,7 @@ FED.PoolView = Backbone.View.extend({
         }
       });
       FED.poolData.push(newModel);
-      if (_.indexOf(this.getTypes(), newModel.Win) === -1) {
+      if (_.indexOf(this.getWins(), newModel.Win) === -1) {
            this.collection.add(new FED.Team(newModel));
           this.$el.find("#filter").find("select").remove().end().append(this.createSelect());
       } else {
@@ -77,10 +77,10 @@ FED.PoolView = Backbone.View.extend({
       });
   },
 
-    // Get types for Win select box
-  getTypes: function () {
-      return _.uniq(this.collection.pluck("Win"), false, function (type) {
-          return type.toLowerCase();
+    // Get wins for Win select box
+  getWins: function () {
+      return _.uniq(this.collection.pluck("Win"), false, function (win) {
+          return win;
       });
   },
 
@@ -90,10 +90,10 @@ FED.PoolView = Backbone.View.extend({
           select = $("<select/>", {
               html: "<option value='all'>all</option>"
           });
-      _.each(this.getTypes(), function (item) {
+      _.each(this.getWins(), function (item) {
           var option = $("<option/>", {
-              value: item.toLowerCase(),
-              text: item.toLowerCase()
+              value: item,
+              text: item
           }).appendTo(select);
       });
       return select;
@@ -101,21 +101,21 @@ FED.PoolView = Backbone.View.extend({
   
   // Set filter
   setFilter: function (e) {
-      this.filterType = e.currentTarget.value;
+      this.filterWin = e.currentTarget.value;
       
     // Trigger custom event handler
-    this.trigger("change:filterType");
+    this.trigger("change:filterWin");
   },
   
   // Filter the collection
-  filterByType: function () {
-      if (this.filterType === "all") {
+  filterByWin: function () {
+      if (this.filterWin === "all") {
           this.collection.reset(FED.poolData);
       } else {
           this.collection.reset(FED.poolData, { silent: true });
-          var filterType = this.filterType,
+          var filterWin = this.filterWin,
               filtered = _.filter(this.collection.models, function (item) {
-              return item.get("Win").toLowerCase() === filterType;
+              return item.get("Win") === filterWin;
           });
           this.collection.reset(filtered);
       }
@@ -129,5 +129,5 @@ FED.PoolView = Backbone.View.extend({
 
   
   
-
+  // Hier wordt de View aangemaakt
   FED.pool_view = new FED.PoolView();
