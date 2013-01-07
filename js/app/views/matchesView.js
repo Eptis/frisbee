@@ -1,7 +1,7 @@
  // # Define schedule view #
 FED.MatchesView = Backbone.View.extend({
     // Define element (this.el)
-    el: $("#matches"),
+    el: $("#schedule"),
     table: $("table", this.el),
 
     // Initialize view *(backbone method)*
