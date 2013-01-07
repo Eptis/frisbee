@@ -1,6 +1,8 @@
 // # Define match model #
-Match = Backbone.Model.extend({
-  defaults: {
+var FED = FED || {}
 
-    }
+FED.Match = Backbone.Model.extend({
+  defaults: {
+    "date": "unknown"
+  }
 });
