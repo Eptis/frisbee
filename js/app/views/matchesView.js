@@ -1,17 +1,18 @@
  // # Define schedule view #
 FED.MatchesView = Backbone.View.extend({
     // Define element (this.el)
-    el: $("#schedule"),
+    el: $("#page"),
     table: $("table", this.el),
+    template: $("#matchesTemplate").html(),
 
     // Initialize view *(backbone method)*
     initialize: function () {
         // Specify collection for this view
         this.collection = new FED.Matches(FED.matchesData);
+        this.mainCollection = this.collection
         // Render view
-        this.render();
+        // this.render();
 
-        this.$el.find("#filter").append(this.createSelect());
 
         // Attach custom event handler
         this.on("change:filterType", this.filterByDate, this);
@@ -24,8 +25,12 @@ FED.MatchesView = Backbone.View.extend({
 
     // Render view *(backbone method)*
     render: function () {
-        this.$el.find("#matches").html("");
+        this.$el.html("");
         var self = this;
+
+        // var template = _.template(this.template,{matches: this.collection.models});
+        this.$el.html(this.template);
+        this.$el.find("#filter").append(this.createSelect());
 
         _.each(this.collection.models, function (item) {
             self.renderMatch(item);
@@ -42,12 +47,11 @@ FED.MatchesView = Backbone.View.extend({
     // Render tournament *(custom method)*
     renderMatch: function (item) {
         // Create new instance of MatchView
-        var matchesView = new FED.MatchView({
+        var matchView = new FED.MatchView({
             model: item
         });
-
         // Append the rendered HTML to the views element
-        this.table.append(matchesView.render().el);
+        this.$el.find("#matches").append(matchView.render().el);
     },
 
     showForm: function(e){
@@ -68,13 +72,12 @@ FED.MatchesView = Backbone.View.extend({
                 newModel[el.id] = $(el).val();
             }
         });
-        console.log(newModel)
         FED.matchesData.push(newModel);
         if (_.indexOf(this.getTypes(), newModel.date) === -1) {
-            this.collection.add(new FED.Match(newModel));
+            this.collection.add(new FED.MatchModel(newModel));
             this.$el.find("#filter").find("select").remove().end().append(this.createSelect());
         } else {
-            this.collection.add(new FED.Match(newModel));
+            this.collection.add(new FED.MatchModel(newModel));
         }
     },
 

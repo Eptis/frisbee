@@ -1,5 +1,5 @@
 // define Set model
-FED.Set = Backbone.Model.extend({
+FED.SetModel = Backbone.Model.extend({
   defaults: {
     "set": "undefined",
     "team1": "undefined",

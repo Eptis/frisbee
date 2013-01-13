@@ -1,18 +1,18 @@
 // define sets view
-FED.gameView = Backbone.View.extend({
-  el: $("#game"),
+FED.GameView = Backbone.View.extend({
+  el: $("#page"),
 
   initialize: function () {
-		this.list = this.$el.find("ul.sets");
-    this.collection = new FED.Game(FED.gameData);
+		this.list = this.$el;
+    this.collection = new FED.GameCollection(FED.gameData);
 
-		this.render();	
-		
+		// this.render();
+
 		this.$el.find("#filter").append(this.createSelect());
-		
+
 		// Attach custom event handler
 		this.on("change:filterType", this.filterByType, this);
-		
+
 		// Attach eventhandlers to collection
     this.collection.on("reset", this.render, this);
 		this.collection.on("add", this.rendergame, this);
@@ -25,24 +25,27 @@ FED.gameView = Backbone.View.extend({
 		"click #add": "addSet",
 		"click #showForm": "showForm"
 	},
-	
+
 	// Render the view
   render: function () {
-		this.$el.find("ul.sets").html("");
+		this.$el.html("");
 
-		_.each(this.collection.models, function (item) {
-	  	this.rendergame(item);
-	  }, this);
+    var template = _.template($("#gameTemplate").html(),{games: this.collection.models});
+    this.$el.html(template);
+
+		// _.each(this.collection.models, function (item) {
+	 //  	this.rendergame(item);
+	 //  }, this);
   },
 
   rendergame: function (item) {
-    var SetView = new FED.setView({
+    var setView = new FED.SetView({
       model: item
     });
 
-    this.list.append(SetView.render().el);
-  },	
-	
+    this.list.append(setView.render().el);
+  },
+
 	// Add Set model
 	addSet: function (e) {
     e.preventDefault();
@@ -54,16 +57,16 @@ FED.gameView = Backbone.View.extend({
     });
     FED.gameData.push(newModel);
     if (_.indexOf(this.getTypes(), newModel.team1) === -1) {
-      this.collection.add(new FED.Set(newModel));
+      this.collection.add(new FED.SetModel(newModel));
       this.$el.find("#filter").find("select").remove().end().append(this.createSelect());
     } else {
-      this.collection.add(new FED.Set(newModel));
+      this.collection.add(new FED.SetModel(newModel));
     }
     // re-render list
     // this.render();
     this.collection.reset(FED.gameData);
 	},
-	
+
 	// Remove Set model
 	removeSet: function (removedModel) {
     var removed = removedModel.attributes;
@@ -90,7 +93,7 @@ FED.gameView = Backbone.View.extend({
 
       return _.uniq(types);
   },
-	
+
 	// Create team1 select box
 	createSelect: function () {
     var filter = this.$el.find("#filter"),
@@ -105,15 +108,15 @@ FED.gameView = Backbone.View.extend({
     });
     return select;
 	},
-	
+
 	// Set filter
 	setFilter: function (e) {
     this.filterType = e.currentTarget.value;
-	    
+
 		// Trigger custom event handler
 		this.trigger("change:filterType");
 	},
-	
+
 	// Filter the collection
 	filterByType: function () {
     if (this.filterType === "all") {
@@ -127,7 +130,7 @@ FED.gameView = Backbone.View.extend({
       this.collection.reset(filtered);
     }
 	},
-	
+
 	showForm: function (e) {
 		e.preventDefault();
     this.$el.find("#addSet").slideToggle();
@@ -136,4 +139,4 @@ FED.gameView = Backbone.View.extend({
 
 
 //create instance of master view
-FED.Game = new FED.gameView();
+// FED.Game = new FED.gameView();

@@ -1,14 +1,14 @@
 // define teams view
 FED.PoolView = Backbone.View.extend({
-    el: $("#pool"),
+    el: $("#page"),
 
     initialize: function () {
-    this.list = this.$el.find("tbody.pool_list");
-        this.collection = new FED.Pool(FED.poolData);
-    
+    this.list = this.$el;
+        this.collection = new FED.PoolCollection(FED.poolData);
+
     //this.render(this.collection.models);
-    this.render();
-    
+    // this.render();
+
     this.$el.find("#filter").append(this.createSelect());
 
     // Attach custom event handler
@@ -30,21 +30,24 @@ FED.PoolView = Backbone.View.extend({
 
 
   // Render the view
-      render: function () {
-      this.$el.find("tbody.pool_list").html("");
-          
-          _.each(this.collection.models, function (item) {
-          this.renderTeam(item);
-        }, this);
+    render: function () {
+      this.$el.html("");
+
+      var template = _.template($("#poolTemplate").html(),{teams: this.collection.models});
+      this.$el.html(template);
+
+        //   _.each(this.collection.models, function (item) {
+        //   this.renderTeam(item);
+        // }, this);
     },
-    
+
     // Render team *(custom method)*
       renderTeam: function (item) {
       // Create new instance of TournamentView
       var teamView = new FED.TeamView({
               model: item
           });
-  
+
       // Append the rendered HTML to the views element
           this.list.append(teamView.render().el);
       },
@@ -98,15 +101,15 @@ FED.PoolView = Backbone.View.extend({
       });
       return select;
   },
-  
+
   // Set filter
   setFilter: function (e) {
       this.filterType = e.currentTarget.value;
-      
+
     // Trigger custom event handler
     this.trigger("change:filterType");
   },
-  
+
   // Filter the collection
   filterByType: function () {
       if (this.filterType === "all") {
@@ -120,14 +123,14 @@ FED.PoolView = Backbone.View.extend({
           this.collection.reset(filtered);
       }
   },
-  
+
   showForm: function (e) {
     e.preventDefault();
       this.$el.find("#addTeam").slideToggle();
   }
 });
 
-  
-  
 
-  FED.pool_view = new FED.PoolView();
+
+
+  // FED.pool_view = new FED.PoolView();

@@ -8,10 +8,10 @@
 		'backbone',
 		'config',
 		'models/tournament',
-		'models/match',
+		// 'models/match',
 		'views/home/home',
-		'views/tournament/tournament',
-		'views/schedule/schedule'
+		// 'views/schedule/schedule',
+		'views/tournament/tournament'
 
 	], function ($, _, Backbone, config, TournamentModel, MatchModel, ScheduleView, homeView, TournamentView) {
 		var AppRouter = Backbone.Router.extend({

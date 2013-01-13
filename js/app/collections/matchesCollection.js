@@ -1,7 +1,7 @@
 // # Define schedule collection #
 FED.Matches = Backbone.Collection.extend({
     // Specifiy model for this collection
-    model: FED.Match,
+    model: FED.MatchModel,
 
     // hetzelfde als for each
     // comparator: function(a, b) {

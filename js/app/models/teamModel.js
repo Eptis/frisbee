@@ -1,5 +1,5 @@
  // define team model
-  FED.Team = Backbone.Model.extend({
+  FED.TeamModel = Backbone.Model.extend({
     // Set model defaults *(backbone method)*
     defaults: {
       "team": "Teamnaam onbekend",

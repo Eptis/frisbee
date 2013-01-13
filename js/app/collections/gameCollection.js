@@ -1,10 +1,10 @@
 // define game, a collection of sets
-FED.Game = Backbone.Collection.extend({
-    model: FED.Set,
+FED.GameCollection = Backbone.Collection.extend({
+    model: FED.SetModel,
 	initizialize:function() {
-		
+
 	},
-	
+
 	// comparator : function(game) {
 	// 	return game.get("team1");
 	// }
@@ -13,5 +13,5 @@ FED.Game = Backbone.Collection.extend({
     return b.get("set") - a.get("set");
   }
 
-	
+
 });

@@ -1,9 +1,9 @@
 // # Define Pool collection #
-  FED.Pool = Backbone.Collection.extend({
+  FED.PoolCollection = Backbone.Collection.extend({
       // Specifiy model for this collection
-    model: FED.Team,
+    model: FED.TeamModel,
     initizialize:function() {
-    
+
   },
 
     comparator : function(pool) {

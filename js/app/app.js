@@ -13,6 +13,6 @@ FED.matchesData = [
 ];
 
 // Kickstart the application by creating an instance of MatchesView
-$(document).ready(function(){
-    FED.matches = new FED.MatchesView();
-})
+// $(document).ready(function(){
+//     FED.matches = new FED.MatchesView();
+// })

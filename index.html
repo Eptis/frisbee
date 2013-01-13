@@ -1,82 +1,4 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <title>Threesome Ultimate Frisbee - Ranking</title>
-        <link rel="stylesheet" href="css/style.css" />
-    </head>
-
-    <body>
-   
-        <div id="wrapper">
-
-
-            <article id="pool">
-        <nav class="actions">
-                    <ul>
-                        <li id="filter">
-                            <label>Show:</label>
-                            
-                        </li>
-                        <li><button id="showForm">Add new team</button></li>
-                    </ul>
-                </nav>
-
-        
-
-        <form id="addTeam" action="#" class="form-2">
-                    <h1>Add team</h1>
-                    <label for="team">Team</label><input id="team" placeholder="Team naam" type="text" />
-                    <div class="clearfix"><input type="submit" id="add" value="Add" /></div>
-                </form>
-            
-            <h1 id="frisbee_ranking">Frisbee - ranking</h1>
-            <table>
-                <tr>
-                    <th>Team</th>
-                    <th>W</th>
-                    <th>L</th>
-                    <th>Sets won</th>
-                    <th>Sets lost</th>
-                    <th>Points won</th>
-                    <th>Points lost</th>
-                </tr>
-                <tbody class="pool_list">
-                </tbody>
-            </table>
-
-        </div>  
-
-    </article>
-        
-    
-        <script id="teamTemplate" type="text/template">             
-            <td><%= team %></td>
-            <td><%= Win %></td>
-            <td><%= Lost %></td>
-            <td><%= Sw %></td>
-            <td><%= Sl %></td>
-            <td><%= Pw %></td>
-            <td><%= Pl %></td>   
-            <td><a href="#" class="delete">Delete</a></td>
-        </script>
-    
-    <!-- Libraries -->
-        <script src="js/libs/jquery-1.7.1.min.js"></script>
-        <script src="js/libs/json2.js"></script>
-        <script src="js/libs/underscore-min.js"></script>
-        <script src="js/libs/backbone-min.js"></script>
-
-    <!-- Application -->
-        <script src="js/app/appRanking.js"></script>
-        <script src="js/app/models/team.js"></script>
-        <script src="js/app/collections/pool.js"></script>
-        <script src="js/app/views/team.js"></script>
-        <script src="js/app/views/pool.js"></script>
-    </body>
-=======
-﻿<!DOCTYPE html>
 
 <html lang="en">
   <head>
@@ -85,17 +7,43 @@
     <title>Backbone.js Web App</title>
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/bootstrap-responsive.min.css" type="text/css" media="screen" >
-    <link rel="stylesheet" href="css/bootstrap.css" type="text/css" media="screen" >
+    <link rel="stylesheet" href="css/bootstrap-theme-cosmo.css" type="text/css" media="screen" >
     <link rel="stylesheet" href="css/screen.css" />
     <!-- <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" title="no title" charset="utf-8">     -->
   </head>
   <body>
     <div id="wrapper" class="container-fluid">
-      
-      <h1 id="frisbee_game">Frisbee game</h1>
-      
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+          <div class="container-fluid">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="#">Leaugevine Tournament Software</a>
+            <div class="nav-collapse collapse">
+              <ul class="nav">
+          <li><a href="#/schedule">Schedule</a></li>
+          <li><a href="#/ranking">Ranking</a></li>
+          <li><a href="#/game">Game</a></li>
+              </ul>
+            </div><!--/.nav-collapse -->
+          </div>
+        </div>
+      </div>
+
+
+      <div id="page"></div>
+
+
+    </div>
+
+    <script id="gameTemplate" type="text/template">
+        <h1 id="frisbee_game">Frisbee game</h1>
+
       <article id="game">
-        
+
         <div class="row-fluid">
           <nav class="actions span12">
             <ul>
@@ -106,22 +54,16 @@
             </ul>
           </nav>
         </div>
-        
+
 
 
         <div class="row-fluid">
           <div class="span12">
             <div class="row-fluid">
-              <div class="span6">
-                <ul class="game cube red">
-                </ul>
-                <ul class="sets cube">
-                </ul>
-              </div>
 
               <div class="span6">
                 <form id="addSet" action="#" class="form-add cube hide">
-                  
+
                   <legend>add set</legend>
 
                   <label for="set">set:</label>
@@ -129,7 +71,7 @@
 
                   <label for="team1">team1:</label>
                   <input id="team1" placeholder="team 1" type="text" />
-                  
+
                   <!-- <label for="team1Score">team 1 score:</label> -->
                   <label for="team1Score">score:</label>
                   <input id="team1Score"  placeholder="t1 score" type="number" class="score" />
@@ -139,7 +81,7 @@
 
                   <label for="team2">team2:</label>
                   <input id="team2" placeholder="team 2" type="text" />
-                  
+
                   <div class="clearfix">
                     <input type="submit" id="add" value="Add" class="btn btn-primary" />
                   </div>
@@ -147,21 +89,136 @@
               </div>
 
             </div>
+            <table class="table">
+            <tr>
+              <th>Set</th>
+              <th>Team</th>
+              <th>Points</th>
+              <th>Team</th>
+            </tr>
+              <% _.each(games, function(game){ %>
+                <tr>
+                  <td class="set"><%= game.get("set") %></td>
+                  <td class="teamone"><%= game.get("team1") %></td>
+                  <td class="score"><%= game.get("team1Score") %> - <%= game.get("team2Score") %></td>
+                  <td class="teamtwo"><%= game.get("team2") %></td>
+                  <td class="actions"><a href="#" class="delete"><i class="icon-remove icon-red"></i></a></td>
+                </tr>
+              <% }); %>
+            </table>
           </div>
         </div>
-        
+
       </article>
 
+
+
+
+    </script>
+
+        <script id="poolTemplate" type="text/template">
+
+            <article id="pool">
+            <nav class="actions">
+                        <ul>
+                            <li id="filter">
+                                <label>Show:</label>
+
+                            </li>
+                            <li><button id="showForm">Add new team</button></li>
+                        </ul>
+                    </nav>
+
+
+
+            <form id="addTeam" action="#" class="form-2">
+                        <h1>Add team</h1>
+                        <label for="team">Team</label><input id="team" placeholder="Team naam" type="text" />
+                        <div class="clearfix"><input type="submit" id="add" value="Add" /></div>
+                    </form>
+
+                <h1 id="frisbee_ranking">Frisbee - ranking</h1>
+                <table class="table">
+                    <tr>
+                        <th>Team</th>
+                        <th>W</th>
+                        <th>L</th>
+                        <th>Sets won</th>
+                        <th>Sets lost</th>
+                        <th>Points won</th>
+                        <th>Points lost</th>
+                    </tr>
+                    <tbody class="pool_list">
+                      <% _.each(teams, function(team){ %>
+                        <tr>
+                          <td><%= team.get("team") %></td>
+                          <td><%= team.get("Win") %></td>
+                          <td><%= team.get("Lost") %></td>
+                          <td><%= team.get("Sw") %></td>
+                          <td><%= team.get("Sl") %></td>
+                          <td><%= team.get("Pw") %></td>
+                          <td><%= team.get("Pl") %></td>
+                          <td><a href="#" class="delete">Delete</a></td>
+                        </tr>
+                      <% }); %>
+                    </tbody>
+                </table>
+
+
+
+
+        </script>
+
+
+      <script id="matchesTemplate" type="text/template">
+
+      <div id="schedule">
+      <h1 id="frisbee_league">Frisbee league</h1>
+      <div id="filter">
+        <label>Filter:</label>
+      </div>
+
+      <form id="addForm" action="#" class="form-inline">
+        <label>Date</label>
+        <input id="date" type="text"/><br/>
+        <label>team1</label>
+        <input id="team1" type="text"/>
+        <label>score</label>
+        <input id="team1Score" type="number"/>
+        <br/>
+        <label>team2</label>
+        <input id="team2" type="text"/>
+        <label>score</label>
+        <input id="team2Score" type="number"/><br/>
+        <input type="submit" id="add" value="Voeg toe"/>
+      </form>
+
+      <table class="table">
+
+        <tr>
+          <th>Date</th>
+          <th>Team</th>
+          <th>Result</th>
+          <th>Team</th>
+        </tr>
+
+        <tbody id="matches">
+
+        </tbody>
+
+      </table>
     </div>
 
-    <script id="SetTemplate" type="text/template">
-      <span class="set"><%= set %></span>
-      <span class="teamone"><%= team1 %></span>
-      <span class="score"><%= team1Score %> - <%= team2Score %></span>
-      <span class="teamtwo"><%= team2 %></span>
-      <span class="actions"><a href="#" class="delete"><i class="icon-remove icon-red"></i></a></span>
-      
-    </script>
+      </script>
+
+      <script type="text/template" id="matchTemplate">
+        <td><%= date %></td>
+        <td><%= team1 %></td>
+        <td><%= team1Score + " - " + team2Score %></td>
+        <td><%= team2 %></td>
+
+        <td><a href="#" class="delete">Delete</a></td>
+      </script>
 
     <!-- Libraries -->
     <script src="js/libs/jquery-1.7.1.min.js"></script>
@@ -171,13 +228,22 @@
     <script src="js/libs/bootstrap.min.js"></script>
 
     <!-- Application -->
-    <script src="js/app/appGame.js"></script>
+    <script src="js/app.js"></script>
     <script src="js/app/models/setModel.js"></script>
+    <script src="js/app/models/matchModel.js"></script>
+    <script src="js/app/models/teamModel.js"></script>
     <script src="js/app/collections/gameCollection.js"></script>
+    <script src="js/app/collections/poolCollection.js"></script>
+    <script src="js/app/collections/matchesCollection.js"></script>
     <script src="js/app/views/setView.js"></script>
     <script src="js/app/views/gameView.js"></script>
+    <script src="js/app/views/matchView.js"></script>
+    <script src="js/app/views/matchesView.js"></script>
+    <script src="js/app/views/poolView.js"></script>
+    <script src="js/app/views/teamView.js"></script>
+
+    <script src="js/router.js"></script>
 
 
   </body>
->>>>>>> origin/jeroen
 </html>
