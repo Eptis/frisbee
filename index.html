@@ -8,16 +8,16 @@
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/bootstrap-responsive.min.css" type="text/css" media="screen" >
     <link rel="stylesheet" href="css/bootstrap.css" type="text/css" media="screen" >
-    <link rel="stylesheet" href="css/screen_jeroen.css" />
+    <link rel="stylesheet" href="css/screen.css" />
     <!-- <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" title="no title" charset="utf-8">     -->
   </head>
   <body>
     <div id="wrapper" class="container-fluid">
-
+      
       <h1 id="frisbee_game">Frisbee game</h1>
-
+      
       <article id="game">
-
+        
         <div class="row-fluid">
           <nav class="actions span12">
             <ul>
@@ -28,7 +28,7 @@
             </ul>
           </nav>
         </div>
-
+        
 
 
         <div class="row-fluid">
@@ -43,7 +43,7 @@
 
               <div class="span6">
                 <form id="addSet" action="#" class="form-add cube hide">
-
+                  
                   <legend>add set</legend>
 
                   <label for="set">set:</label>
@@ -51,7 +51,7 @@
 
                   <label for="team1">team1:</label>
                   <input id="team1" placeholder="team 1" type="text" />
-
+                  
                   <!-- <label for="team1Score">team 1 score:</label> -->
                   <label for="team1Score">score:</label>
                   <input id="team1Score"  placeholder="t1 score" type="number" class="score" />
@@ -61,7 +61,7 @@
 
                   <label for="team2">team2:</label>
                   <input id="team2" placeholder="team 2" type="text" />
-
+                  
                   <div class="clearfix">
                     <input type="submit" id="add" value="Add" class="btn btn-primary" />
                   </div>
@@ -71,7 +71,7 @@
             </div>
           </div>
         </div>
-
+        
       </article>
 
     </div>
@@ -82,7 +82,7 @@
       <span class="score"><%= team1Score %> - <%= team2Score %></span>
       <span class="teamtwo"><%= team2 %></span>
       <span class="actions"><a href="#" class="delete"><i class="icon-remove icon-red"></i></a></span>
-
+      
     </script>
 
     <!-- Libraries -->
@@ -97,6 +97,7 @@
     <script src="js/app/models/setModel.js"></script>
     <script src="js/app/collections/gameCollection.js"></script>
     <script src="js/app/views/setView.js"></script>
+    <script src="js/app/views/resultView.js"></script>
     <script src="js/app/views/gameView.js"></script>
 
 

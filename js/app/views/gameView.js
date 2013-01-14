@@ -33,6 +33,8 @@ FED.gameView = Backbone.View.extend({
 		_.each(this.collection.models, function (item) {
 	  	this.rendergame(item);
 	  }, this);
+    // this.renderFilter(FED.gameData);
+
   },
 
   rendergame: function (item) {
@@ -41,7 +43,18 @@ FED.gameView = Backbone.View.extend({
     });
 
     this.list.append(SetView.render().el);
-  },	
+  },
+
+/*renderResult: function (data) {
+    // var ResultView = new FED.resultView();
+    // console.log("ul.game .html renderResult");
+    // $("ul.game").html(ResultView.render(data));
+
+    
+  },
+  renderFilter: function (data) {
+    console.log(this.collection);
+  },*/
 	
 	// Add Set model
 	addSet: function (e) {
@@ -53,41 +66,42 @@ FED.gameView = Backbone.View.extend({
       }
     });
     FED.gameData.push(newModel);
+
     if (_.indexOf(this.getTypes(), newModel.team1) === -1) {
+      
       this.collection.add(new FED.Set(newModel));
+      // !!! reset moet tussen de add en de createSelect anders werkt het niet
+      this.collection.reset(FED.gameData);
       this.$el.find("#filter").find("select").remove().end().append(this.createSelect());
+
     } else {
       this.collection.add(new FED.Set(newModel));
+      // !!! hier voor de zekerheid ook maar neergezet
+      this.collection.reset(FED.gameData);
     }
-    // re-render list
-    // this.render();
-    this.collection.reset(FED.gameData);
 	},
 	
 	// Remove Set model
 	removeSet: function (removedModel) {
+    // FED.gameData = this.collection.toJSON();
     var removed = removedModel.attributes;
+    console.log(removed);
     _.each(FED.gameData, function (item) {
       if (_.isEqual(item, removed)) {
         FED.gameData.splice(_.indexOf(FED.gameData, item), 1);
       }
     });
+    // !!! na het verwijderen de collectie resetten en weer opnieuw renderen
+    this.collection.reset(FED.gameData);
+    this.render();
 	},
 
-	// Get types for set select box
-	/*getTypes: function () {
-      return _.uniq(this.collection.pluck("team1"), false, function (type) {
-          return type.toLowerCase();
-      });
-  },*/
-
-  getTypes: function () {
-      // console.log(this.collection.pluck("team1"));
+  // get types
+	getTypes: function () {
       types = [];
       _.each(this.collection.pluck("team1"), function (item) {
         types.push(item.toLowerCase());
       });
-
       return _.uniq(types);
   },
 	
