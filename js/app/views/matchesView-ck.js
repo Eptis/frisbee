@@ -1,2 +1,0 @@
-// # Define schedule view #
-MatchesView=Backbone.View.extend({el:$("#matches"),initialize:function(){this.collection=new Matches(matchesData);this.render()},render:function(){var e=this;_.each(this.collection.models,function(t){e.renderMatch(t)},this)},renderMatch:function(e){var t=new MatchView({model:e});this.$el.append(t.render().el)}});
