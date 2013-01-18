@@ -1,0 +1,10 @@
+﻿#page{ margin-top: 72px; opacity: 0;}
+#page{
+  -webkit-transition: all 500ms ease-in-out;
+    -moz-transition: all 500ms ease-in-out;
+        -ms-transition: all 500ms ease-in-out;
+        -o-transition: all 500ms ease-in-out;
+    transition: all 500ms ease-in-out;
+    margin-left:-200px;
+}
+#page.loaded{opacity:1; margin-left:0px;}
