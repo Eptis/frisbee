@@ -34,14 +34,11 @@ FED.MatchesView = Backbone.View.extend({
         // var template = _.template(this.template,{matches: this.collection.models});
         // this.$el.find("#filter").append(this.createSelect());
 
-
         _.each(this.collection.models, function (item) {
             self.renderMatch(item);
         }, this);
 
-        setTimeout(function(){
-            $("#page").addClass("loaded");
-        }, 1000)
+        
 
     },
 

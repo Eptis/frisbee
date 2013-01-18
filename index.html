@@ -148,19 +148,7 @@
                         <th>Points won</th>
                         <th>Points lost</th>
                     </tr>
-                    <tbody class="pool_list">
-                      <% _.each(teams, function(team){ %>
-                        <tr>
-                          <td><%= team.get("team") %></td>
-                          <td><%= team.get("Win") %></td>
-                          <td><%= team.get("Lost") %></td>
-                          <td><%= team.get("Sw") %></td>
-                          <td><%= team.get("Sl") %></td>
-                          <td><%= team.get("Pw") %></td>
-                          <td><%= team.get("Pl") %></td>
-                          <td><a href="#" class="delete">Delete</a></td>
-                        </tr>
-                      <% }); %>
+                    <tbody id="pool_list">
                     </tbody>
                 </table>
 
@@ -217,6 +205,17 @@
         <td><%= team1Score + " - " + team2Score %></td>
         <td><%= team2 %></td>
 
+        <td><a href="#" class="delete">Delete</a></td>
+      </script>
+
+      <script type="text/template" id="teamTemplate">
+        <td><%= team %></td>
+        <td><%= Win %></td>
+        <td><%= Lost %></td>
+        <td><%= Sw %></td>
+        <td><%= Sl %></td>
+        <td><%= Pw %></td>
+        <td><%= Pl %></td>
         <td><a href="#" class="delete">Delete</a></td>
       </script>
 
