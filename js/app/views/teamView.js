@@ -14,13 +14,13 @@
   deleteTeam: function (e) {
     e.preventDefault();
       
-    var removedWin = this.model.get("Win");
+    var removedType = this.model.get("Win").toLowerCase();
       
     this.model.destroy();
       this.remove();
       
-    if (_.indexOf(FED.pool.getWins(), removedWin) === -1) {
-          FED.pool.$el.find("#filter select").children("[value='" + removedWin + "']").remove();
+    if (_.indexOf(FED.pool.getTypes(), removedType) === -1) {
+          FED.pool.$el.find("#filter select").children("[value='" + removedType + "']").remove();
       }
   },
     

@@ -1,18 +1,22 @@
 // define teams view
 FED.PoolView = Backbone.View.extend({
-    el: $("#pool"),
+    el: $("#page"),
 
-    //Voert de onderstaande code uit wanneer de View wordt aangemaakt
     initialize: function () {
-    this.list = this.$el.find("tbody.pool_list");
-        this.collection = new FED.Pool(FED.poolData);
-    
-    this.render();
-    
+    this.list = this.$el;
+    this.$el.html("");
+
+        this.collection = new FED.PoolCollection(FED.poolData);
+
+    //this.render(this.collection.models);
+    // this.render();
+      var template = _.template($("#poolTemplate").html(),{teams: this.collection.models});
+      this.$el.html(template);
+
     this.$el.find("#filter").append(this.createSelect());
 
     // Attach custom event handler
-    this.on("change:filterWin", this.filterByWin, this);
+    this.on("change:filterType", this.filterByType, this);
 
     // Attach eventhandlers to collection
     this.collection.on("reset", this.render, this);
@@ -22,7 +26,7 @@ FED.PoolView = Backbone.View.extend({
 
     // Attach event handlers to view elements
   events: {
-    "change #filter select": "setFilter",
+      "change #filter select": "setFilter",
     "click #add": "addTeam",
     "click #showForm": "showForm"
   },
@@ -30,21 +34,22 @@ FED.PoolView = Backbone.View.extend({
 
 
   // Render the view
-      render: function () {
-      this.$el.find("tbody.pool_list").html("");
-          
-          _.each(this.collection.models, function (item) {
-          this.renderTeam(item);
-        }, this);
+    render: function () {
+      this.$el.html("");
+
+
+        //   _.each(this.collection.models, function (item) {
+        //   this.renderTeam(item);
+        // }, this);
     },
-    
+
     // Render team *(custom method)*
       renderTeam: function (item) {
-      // Create new instance of TeamView
+      // Create new instance of TournamentView
       var teamView = new FED.TeamView({
               model: item
           });
-  
+
       // Append the rendered HTML to the views element
           this.list.append(teamView.render().el);
       },
@@ -59,7 +64,7 @@ FED.PoolView = Backbone.View.extend({
         }
       });
       FED.poolData.push(newModel);
-      if (_.indexOf(this.getWins(), newModel.Win) === -1) {
+      if (_.indexOf(this.getTypes(), newModel.Win) === -1) {
            this.collection.add(new FED.Team(newModel));
           this.$el.find("#filter").find("select").remove().end().append(this.createSelect());
       } else {
@@ -77,10 +82,10 @@ FED.PoolView = Backbone.View.extend({
       });
   },
 
-    // Get wins for Win select box
-  getWins: function () {
-      return _.uniq(this.collection.pluck("Win"), false, function (win) {
-          return win;
+    // Get types for Win select box
+  getTypes: function () {
+      return _.uniq(this.collection.pluck("Win"), false, function (type) {
+          return type.toLowerCase();
       });
   },
 
@@ -90,44 +95,44 @@ FED.PoolView = Backbone.View.extend({
           select = $("<select/>", {
               html: "<option value='all'>all</option>"
           });
-      _.each(this.getWins(), function (item) {
+      _.each(this.getTypes(), function (item) {
           var option = $("<option/>", {
-              value: item,
-              text: item
+              value: item.toLowerCase(),
+              text: item.toLowerCase()
           }).appendTo(select);
       });
       return select;
   },
-  
+
   // Set filter
   setFilter: function (e) {
-      this.filterWin = e.currentTarget.value;
-      
+      this.filterType = e.currentTarget.value;
+
     // Trigger custom event handler
-    this.trigger("change:filterWin");
+    this.trigger("change:filterType");
   },
-  
+
   // Filter the collection
-  filterByWin: function () {
-      if (this.filterWin === "all") {
+  filterByType: function () {
+      if (this.filterType === "all") {
           this.collection.reset(FED.poolData);
       } else {
           this.collection.reset(FED.poolData, { silent: true });
-          var filterWin = this.filterWin,
+          var filterType = this.filterType,
               filtered = _.filter(this.collection.models, function (item) {
-              return item.get("Win") === filterWin;
+              return item.get("Win").toLowerCase() === filterType;
           });
           this.collection.reset(filtered);
       }
   },
-  
+
   showForm: function (e) {
     e.preventDefault();
       this.$el.find("#addTeam").slideToggle();
   }
 });
 
-  
-  
-  // Hier wordt de View aangemaakt
-  FED.pool_view = new FED.PoolView();
+
+
+
+  // FED.pool_view = new FED.PoolView();
