@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Threesome Ultimate Frisbee - Schedule</title>
+        <link rel="stylesheet" href="css/style.css" />
+    </head>
+    <body>
+
+    <div id="schedule">
+      <h1 id="frisbee_league">Frisbee league</h1>
+      <div id="filter">
+        <label>Filter:</label>
+      </div>
+
+      <form id="addForm" action="#">
+        <label>Date</label>
+        <input id="date" type="text"/><br/>
+        <label>team1</label>
+        <input id="team1" type="text"/>
+        <label>score</label>
+        <input id="team1Score" type="number"/>
+        <br/>
+        <label>team2</label>
+        <input id="team2" type="text"/>
+        <label>score</label>
+        <input id="team2Score" type="number"/><br/>
+        <input type="submit" id="add" value="Voeg toe"/>
+      </form>
+
+      <table>
+
+        <tr>
+          <th>Date</th>
+          <th>Team</th>
+          <th>Result</th>
+          <th>Team</th>
+        </tr>
+
+        <tbody id="matches">
+
+        </tbody>
+
+      </table>
+    </div>
+
+
+        <script id="matchesTemplate" type="text/template">
+        <td><%= date %></td>
+        <td><%= team1 %></td>
+        <td><%= team1Score + " - " + team2Score %></td>
+        <td><%= team2 %></td>
+
+        <td><a href="#" class="delete">Delete</a></td>
+        </script>
+
+    <!-- Libraries -->
+        <script src="js/libs/jquery-1.8.3.min.js"></script>
+        <script src="js/libs/underscore-min.js"></script>
+        <script src="js/libs/backbone-min.js"></script>
+
+    <!-- Application -->
+    <script src="js/app/models/match.js"></script>
+    <script src="js/app/collections/matchesCollection.js"></script>
+    <script src="js/app/views/matchView.js"></script>
+    <script src="js/app/views/matchesView.js"></script>
+    <script src="js/app/app.js"></script>
+
+
+    </body>
+</html>
