@@ -1,16 +1,20 @@
  // # Define schedule view #
 FED.MatchesView = Backbone.View.extend({
     // Define element (this.el)
-    el: $("#schedule"),
+    el: $("#page"),
     table: $("table", this.el),
+    template: $("#matchesTemplate").html(),
 
     // Initialize view *(backbone method)*
     initialize: function () {
         // Specify collection for this view
-        this.collection = new FED.Matches(FED.matchesData);
-        // Render view
-        this.render();
+        this.$el.html("");
 
+        this.collection = new FED.Matches(FED.matchesData);
+        this.mainCollection = this.collection
+        // Render view
+        this.$el.html(this.template);
+        this.render();
         this.$el.find("#filter").append(this.createSelect());
 
         // Attach custom event handler
@@ -27,9 +31,18 @@ FED.MatchesView = Backbone.View.extend({
         this.$el.find("#matches").html("");
         var self = this;
 
+        // var template = _.template(this.template,{matches: this.collection.models});
+        // this.$el.find("#filter").append(this.createSelect());
+
+
         _.each(this.collection.models, function (item) {
             self.renderMatch(item);
         }, this);
+
+        setTimeout(function(){
+            $("#page").addClass("loaded");
+        }, 1000)
+
     },
 
     // Attach event handlers to view elements
@@ -42,22 +55,17 @@ FED.MatchesView = Backbone.View.extend({
     // Render tournament *(custom method)*
     renderMatch: function (item) {
         // Create new instance of MatchView
-        var matchesView = new FED.MatchView({
+
+        var matchView = new FED.MatchView({
             model: item
         });
-
         // Append the rendered HTML to the views element
-        this.table.append(matchesView.render().el);
+        this.$el.find("#matches").append(matchView.render().el);
     },
 
     showForm: function(e){
         e.preventDefault();
         $("#addFormn").slideToggle();
-    },
-
-    setFilter: function(e){
-        e.preventDefault();
-        $("#filter").slideToggle();
     },
 
     addMatch: function(e){
@@ -68,13 +76,13 @@ FED.MatchesView = Backbone.View.extend({
                 newModel[el.id] = $(el).val();
             }
         });
-        console.log(newModel)
         FED.matchesData.push(newModel);
         if (_.indexOf(this.getTypes(), newModel.date) === -1) {
-            this.collection.add(new FED.Match(newModel));
+            this.collection.add(new FED.MatchModel(newModel));
+            this.collection.reset(FED.matchesData);
             this.$el.find("#filter").find("select").remove().end().append(this.createSelect());
         } else {
-            this.collection.add(new FED.Match(newModel));
+            this.collection.add(new FED.MatchModel(newModel));
         }
     },
 
@@ -94,7 +102,6 @@ FED.MatchesView = Backbone.View.extend({
         return _.uniq(this.collection.pluck("date"), false, function (date) {
             return date.toLowerCase();
         });
-
     },
 
     // Create date select box
@@ -103,6 +110,7 @@ FED.MatchesView = Backbone.View.extend({
             select = $("<select/>", {
                 html: "<option value='all'>all</option>"
             });
+
         _.each(this.getTypes(), function (item) {
             var option = $("<option/>", {
                 value: item.toLowerCase(),
@@ -125,12 +133,12 @@ FED.MatchesView = Backbone.View.extend({
         if (this.filterType === "all") {
             this.collection.reset(FED.matchesData);
         } else {
+            // console.log(FED.matchesData)
             this.collection.reset(FED.matchesData, { silent: true });
             var filterType = this.filterType,
                 filtered = _.filter(this.collection.models, function (item) {
-                return item.get("date").toLowerCase() === filterType;
-            });
-
+                    return item.get("date").toLowerCase() === filterType;
+                });
             this.collection.reset(filtered);
         }
     }
