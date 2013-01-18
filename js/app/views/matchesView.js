@@ -8,11 +8,14 @@ FED.MatchesView = Backbone.View.extend({
     // Initialize view *(backbone method)*
     initialize: function () {
         // Specify collection for this view
+        this.$el.html("");
+
         this.collection = new FED.Matches(FED.matchesData);
         this.mainCollection = this.collection
         // Render view
-        // this.render();
-
+        this.$el.html(this.template);
+        this.render();
+        this.$el.find("#filter").append(this.createSelect());
 
         // Attach custom event handler
         this.on("change:filterType", this.filterByDate, this);
@@ -25,16 +28,21 @@ FED.MatchesView = Backbone.View.extend({
 
     // Render view *(backbone method)*
     render: function () {
-        this.$el.html("");
+        this.$el.find("#matches").html("");
         var self = this;
 
         // var template = _.template(this.template,{matches: this.collection.models});
-        this.$el.html(this.template);
-        this.$el.find("#filter").append(this.createSelect());
+        // this.$el.find("#filter").append(this.createSelect());
+
 
         _.each(this.collection.models, function (item) {
             self.renderMatch(item);
         }, this);
+
+        setTimeout(function(){
+            $("#page").addClass("loaded");
+        }, 1000)
+
     },
 
     // Attach event handlers to view elements
@@ -47,6 +55,7 @@ FED.MatchesView = Backbone.View.extend({
     // Render tournament *(custom method)*
     renderMatch: function (item) {
         // Create new instance of MatchView
+
         var matchView = new FED.MatchView({
             model: item
         });
@@ -57,11 +66,6 @@ FED.MatchesView = Backbone.View.extend({
     showForm: function(e){
         e.preventDefault();
         $("#addFormn").slideToggle();
-    },
-
-    setFilter: function(e){
-        e.preventDefault();
-        $("#filter").slideToggle();
     },
 
     addMatch: function(e){
@@ -75,6 +79,7 @@ FED.MatchesView = Backbone.View.extend({
         FED.matchesData.push(newModel);
         if (_.indexOf(this.getTypes(), newModel.date) === -1) {
             this.collection.add(new FED.MatchModel(newModel));
+            this.collection.reset(FED.matchesData);
             this.$el.find("#filter").find("select").remove().end().append(this.createSelect());
         } else {
             this.collection.add(new FED.MatchModel(newModel));
@@ -97,7 +102,6 @@ FED.MatchesView = Backbone.View.extend({
         return _.uniq(this.collection.pluck("date"), false, function (date) {
             return date.toLowerCase();
         });
-
     },
 
     // Create date select box
@@ -106,6 +110,7 @@ FED.MatchesView = Backbone.View.extend({
             select = $("<select/>", {
                 html: "<option value='all'>all</option>"
             });
+
         _.each(this.getTypes(), function (item) {
             var option = $("<option/>", {
                 value: item.toLowerCase(),
@@ -128,12 +133,12 @@ FED.MatchesView = Backbone.View.extend({
         if (this.filterType === "all") {
             this.collection.reset(FED.matchesData);
         } else {
+            // console.log(FED.matchesData)
             this.collection.reset(FED.matchesData, { silent: true });
             var filterType = this.filterType,
                 filtered = _.filter(this.collection.models, function (item) {
-                return item.get("date").toLowerCase() === filterType;
-            });
-
+                    return item.get("date").toLowerCase() === filterType;
+                });
             this.collection.reset(filtered);
         }
     }

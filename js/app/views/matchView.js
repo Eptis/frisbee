@@ -16,10 +16,11 @@ FED.MatchView = Backbone.View.extend({
     var removedType = this.model.get("date").toLowerCase();
 
     this.model.destroy();
-      this.remove();
+    this.remove();
 
-    if (_.indexOf(FED.matchesView.getTypes(), removedType) === -1) {
-          FED.matchesView.$el.find("#filter select").children("[value='" + removedType + "']").remove();
+
+    if (_.indexOf(FED.app_router.matchesView.getTypes(), removedType) === -1) {
+          FED.app_router.matchesView.$el.find("#filter select").children("[value='" + removedType + "']").remove();
       }
   },
 

@@ -4,10 +4,14 @@ FED.GameView = Backbone.View.extend({
 
   initialize: function () {
 		this.list = this.$el;
+    this.$el.html("");
+
     this.collection = new FED.GameCollection(FED.gameData);
 
 		// this.render();
 
+    var template = _.template($("#gameTemplate").html(),{games: this.collection.models});
+    this.$el.html(template);
 		this.$el.find("#filter").append(this.createSelect());
 
 		// Attach custom event handler
@@ -30,8 +34,6 @@ FED.GameView = Backbone.View.extend({
   render: function () {
 		this.$el.html("");
 
-    var template = _.template($("#gameTemplate").html(),{games: this.collection.models});
-    this.$el.html(template);
 
 		// _.each(this.collection.models, function (item) {
 	 //  	this.rendergame(item);

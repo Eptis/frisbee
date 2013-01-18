@@ -4,10 +4,14 @@ FED.PoolView = Backbone.View.extend({
 
     initialize: function () {
     this.list = this.$el;
+    this.$el.html("");
+
         this.collection = new FED.PoolCollection(FED.poolData);
 
     //this.render(this.collection.models);
     // this.render();
+      var template = _.template($("#poolTemplate").html(),{teams: this.collection.models});
+      this.$el.html(template);
 
     this.$el.find("#filter").append(this.createSelect());
 
@@ -33,8 +37,6 @@ FED.PoolView = Backbone.View.extend({
     render: function () {
       this.$el.html("");
 
-      var template = _.template($("#poolTemplate").html(),{teams: this.collection.models});
-      this.$el.html(template);
 
         //   _.each(this.collection.models, function (item) {
         //   this.renderTeam(item);
