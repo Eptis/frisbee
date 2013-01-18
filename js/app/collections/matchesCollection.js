@@ -18,6 +18,5 @@ FED.Matches = Backbone.Collection.extend({
     comparator : function(matches) {
       return matches.get("date");
     }
-
 });
 

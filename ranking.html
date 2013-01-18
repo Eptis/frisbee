@@ -5,17 +5,32 @@
         <title>Threesome Ultimate Frisbee - Ranking</title>
         <link rel="stylesheet" href="css/style.css" />
     </head>
+
     <body>
 
-        <header>
-            <h1><span>League:</span>AMSU - 12</h1>
-            <h1><span>Tournament:</span>Threesome</h1>
-        </header>
+        <div id="wrapper">
 
-        <article>
-            <header>
-                <h1>Pool A - Ranking</h1>
-            </header>
+
+            <article id="pool">
+        <nav class="actions">
+                    <ul>
+                        <li id="filter">
+                            <label>Show:</label>
+
+                        </li>
+                        <li><button id="showForm">Add new team</button></li>
+                    </ul>
+                </nav>
+
+
+
+        <form id="addTeam" action="#" class="form-2">
+                    <h1>Add team</h1>
+                    <label for="team">Team</label><input id="team" placeholder="Team naam" type="text" />
+                    <div class="clearfix"><input type="submit" id="add" value="Add" /></div>
+                </form>
+
+            <h1 id="frisbee_ranking">Frisbee - ranking</h1>
             <table>
                 <tr>
                     <th>Team</th>
@@ -23,86 +38,40 @@
                     <th>L</th>
                     <th>Sets won</th>
                     <th>Sets lost</th>
-                    <th>+/-</th>
                     <th>Points won</th>
                     <th>Points lost</th>
-                    <th>+/-</th>
                 </tr>
-
-                <tr>
-                    <td>Burning Snow</td>
-                    <td>3</td>
-                    <td>1</td>
-                    <td>11</td>
-                    <td>4</td>
-                    <td>+7</td>
-                    <td>36</td>
-                    <td>23</td>
-                    <td>+13</td>
-                </tr>
-
-                <tr>
-                    <td>Boomsquad</td>
-                    <td>2</td>
-                    <td>2</td>
-                    <td>9</td>
-                    <td>8</td>
-                    <td>+1</td>
-                    <td>36</td>
-                    <td>34</td>
-                    <td>+2</td>
-                </tr>
-
-                <tr>
-                    <td>Chasing</td>
-                    <td>2</td>
-                    <td>2</td>
-                    <td>7</td>
-                    <td>9</td>
-                    <td>-2</td>
-                    <td>35</td>
-                    <td>39</td>
-                    <td>-4</td>
-                </tr>
-
-                <tr>
-                    <td>Beast Amsterdam</td>
-                    <td>2</td>
-                    <td>2</td>
-                    <td>6</td>
-                    <td>8</td>
-                    <td>-2</td>
-                    <td>30</td>
-                    <td>34</td>
-                    <td>-4</td>
-                </tr>
-
-                <tr>
-                    <td>Amsterdam Money Gang</td>
-                    <td>1</td>
-                    <td>3</td>
-                    <td>6</td>
-                    <td>10</td>
-                    <td>-4</td>
-                    <td>30</td>
-                    <td>37</td>
-                    <td>-7</td>
-                </tr>
-
+                <tbody class="pool_list">
+                </tbody>
             </table>
-        </article>
 
-<pre>
-<header>Json testdata</header>
-var ranking = [
-    { team: "Chasing", Win: "2", Lost: "2", Sw: "7", Sl: "9", Pw: "35", Pl: "39"},
-    { team: "Boomsquad", Win: "2", Lost: "2", Sw: "9", Sl: "8", Pw: "36", Pl: "34"},
-    { team: "Burning Snow", Win: "3", Lost: "1", Sw: "11", Sl: "4", Pw: "36", Pl: "23"},
-    { team: "Beast Amsterdam", Win: "2", Lost: "2", Sw: "6", Sl: "8", Pw: "30", Pl: "34"},
-    { team: "Amsterdam Money Gang", Win: "1", Lost: "3", Sw: "6", Sl: "10", Pw: "30", Pl: "37"}
-    ];
-</pre>
+        </div>
+
+    </article>
 
 
+        <script id="teamTemplate" type="text/template">
+            <td><%= team %></td>
+            <td><%= Win %></td>
+            <td><%= Lost %></td>
+            <td><%= Sw %></td>
+            <td><%= Sl %></td>
+            <td><%= Pw %></td>
+            <td><%= Pl %></td>
+            <td><a href="#" class="delete">Delete</a></td>
+        </script>
+
+    <!-- Libraries -->
+        <script src="js/libs/jquery-1.7.1.min.js"></script>
+        <script src="js/libs/json2.js"></script>
+        <script src="js/libs/underscore-min.js"></script>
+        <script src="js/libs/backbone-min.js"></script>
+
+    <!-- Application -->
+        <script src="js/app/appRanking.js"></script>
+        <script src="js/app/models/teamModel.js"></script>
+        <script src="js/app/collections/poolCollection.js"></script>
+        <script src="js/app/views/teamView.js"></script>
+        <script src="js/app/views/poolView.js"></script>
     </body>
 </html>

@@ -1,4 +1,3 @@
-
 // # Define Match view #
 FED.MatchView = Backbone.View.extend({
     tagName: "tr",

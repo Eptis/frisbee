@@ -1,10 +1,159 @@
-﻿#page{ margin-top: 72px; opacity: 0;}
-#page{
-  -webkit-transition: all 500ms ease-in-out;
-    -moz-transition: all 500ms ease-in-out;
-        -ms-transition: all 500ms ease-in-out;
-        -o-transition: all 500ms ease-in-out;
-    transition: all 500ms ease-in-out;
-    margin-left:-200px;
+
+﻿.contact-container { width:400px; padding:10px; border:1px solid #aaa; margin:0 10px 10px 0; float:left; font-family:sans-serif; color:#333; background-color:#eee; }
+.contact-container h1 { margin:0; font-weight:normal; }
+.contact-container h1 span { float:right; font-size:14px; line-height:24px; font-weight:normal; }
+.contact-container img { border-width:1px; border-style:solid; border-color:#fff; border-right-color:#aaa; border-bottom-color:#aaa; margin-right:10px; float:left; }
+.contact-container div { margin-bottom:24px; font-size:14px; }
+.contact-container a { color:#333;}
+.contact-container dl { margin:0; float:left; font-size:14px; }
+.contact-container dt, .contact-container dd { margin:0; float:left; }
+.contact-container dt { width:50px; clear:left; }
+﻿* {
+	margin:0;
+	padding:0;
 }
-#page.loaded{opacity:1; margin-left:0px;}
+body {
+	color:#fff;
+	font-family:verdana;
+	background: url('../img/frisbee.jpeg') no-repeat fixed;
+	padding-top:20px;
+}
+#wrapper {
+	width:500px;
+}
+h1 {
+	font-family: 'Shadows Into Light Two', cursive;
+	margin-bottom:.5em;
+	margin-left:20px;
+}
+h2 {
+	font-weight:normal;
+	font-size:1em;
+}
+#league {
+	list-style:none;
+}
+	#league li {
+		width:80%;
+		background-color:rgba(0,0,0,.75);
+		border:1px solid #ccc;
+		padding:2%;
+		margin:20px;
+		border-radius:20px;
+		box-shadow:0 0 6px rgba(0,0,0,0.5);
+	}
+	#league h1 {
+		text-align:left;
+		font-size:1.75em;
+		margin-left:0;
+	}
+	#league h2 {
+		color:#666;
+	}
+	#league strong {
+		color:#fff;
+	}
+>>>>>>> origin/Alvin
+=======
+﻿/* screen css */
+
+* {
+	margin:0;
+	padding:0;
+}
+
+/* GLOBALS */
+body {
+	color:#B1AAA7;
+	font-family:verdana;
+	background: #ECE8E2;
+	x-webkit-transform-style: preserve-3d;
+}
+
+h1 {
+	color: #F65857;
+	font-family: verdana, sans-serif;
+	font-size:2em;
+	margin-bottom:.5em;
+	margin-left:20px;
+}
+
+ul {
+	list-style:none;
+}
+
+/* DEFAULTS */
+.cube {
+	overflow-x: hidden;
+	min-height: 32px;
+	background: #FFFFFF;
+	border:1px solid #C8BEBA;
+	color: #B1AAA7;
+	box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.2);
+}
+
+.cube.red {
+	background: #F65857;
+}
+
+/* LISTS */
+li#filter label, li#filter select { float: left; margin-right: 10px;}
+li#filter label { margin-top: 5px; }
+
+ul.sets li {
+	width: 100%;
+	padding: 8px;
+}
+ul.sets li:nth-child(odd) {
+	background-color: #f9f9f9;
+}
+
+ul.sets li span { display: inline-block;}
+ul.sets li span.set { width: 5%;}
+ul.sets li span.teamone { width: 30%; text-align: center;}
+ul.sets li span.score { width: 15%; text-align: center;}
+ul.sets li span.teamtwo { width: 30%; text-align: center;}
+ul.sets li span.actions { width: 5%;}
+
+.delete {
+	display: none;
+	text-decoration: none;
+	color: red;
+	font-weight: bold;
+}
+ul.sets li:hover .delete {
+	display:inline-block;
+}
+.delete:hover { }
+.delete:active { }
+
+/* FORMS */
+.form-add {
+	overflow: hidden;
+	padding-bottom: 20px;
+}
+.form-add legend {
+	display: block;
+	width: 100%;
+	padding-left: 20px;
+	background: #DBD5CE;
+	color: #fff;
+	text-transform: uppercase;
+	font-size: 1em;
+}
+.form-add label {
+	margin-top: 5px;
+	width: 160px;
+	float: left;
+	clear: both;
+	text-align: right;
+}
+.form-add input {
+	margin-left: 10px;
+	float: left;
+}
+
+.form-add span { padding: 5px; margin-left: 10px; float: left;}
+
+.form-add input.score { display: block; width: 78px!important; }
+

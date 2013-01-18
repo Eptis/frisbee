@@ -1,18 +1,18 @@
 <!DOCTYPE html>
+
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <title>Threesome Ultimate Frisbee - Schedule</title>
+        <title>Backbone.js Web App</title>
+    <link href='http://fonts.googleapis.com/css?family=Shadows+Into+Light+Two' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="css/style.css" />
     </head>
     <body>
-
     <div id="schedule">
       <h1 id="frisbee_league">Frisbee league</h1>
       <div id="filter">
         <label>Filter:</label>
       </div>
-
       <form id="addForm" action="#">
         <label>Date</label>
         <input id="date" type="text"/><br/>
@@ -36,7 +36,6 @@
           <th>Result</th>
           <th>Team</th>
         </tr>
-
         <tbody id="matches">
 
         </tbody>
@@ -50,7 +49,6 @@
         <td><%= team1 %></td>
         <td><%= team1Score + " - " + team2Score %></td>
         <td><%= team2 %></td>
-
         <td><a href="#" class="delete">Delete</a></td>
         </script>
 
@@ -65,7 +63,6 @@
     <script src="js/app/views/matchView.js"></script>
     <script src="js/app/views/matchesView.js"></script>
     <script src="js/app/app.js"></script>
-
 
     </body>
 </html>
