@@ -66,9 +66,11 @@ FED.PoolView = Backbone.View.extend({
       FED.poolData.push(newModel);
       if (_.indexOf(this.getTypes(), newModel.Win) === -1) {
            this.collection.add(new FED.Team(newModel));
+           this.collection.reset(FED.poolData);
           this.$el.find("#filter").find("select").remove().end().append(this.createSelect());
       } else {
           this.collection.add(new FED.Team(newModel));
+          this.collection.reset(FED.poolData);
       }
   },
 
@@ -80,6 +82,8 @@ FED.PoolView = Backbone.View.extend({
               FED.poolData.splice(_.indexOf(FED.poolData, item), 1);
           }
       });
+      this.collection.reset(FED.poolData);
+      this.render();
   },
 
     // Get types for Win select box

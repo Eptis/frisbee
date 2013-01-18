@@ -83,6 +83,7 @@ FED.MatchesView = Backbone.View.extend({
             this.$el.find("#filter").find("select").remove().end().append(this.createSelect());
         } else {
             this.collection.add(new FED.MatchModel(newModel));
+            this.collection.reset(FED.matchesData);
         }
     },
 
@@ -94,6 +95,8 @@ FED.MatchesView = Backbone.View.extend({
                 FED.matchesData.splice(_.indexOf(FED.matchesData, item), 1);
             }
         });
+        this.collection.reset(FED.matchesData);
+        this.render();
     },
 
     // filter functies
