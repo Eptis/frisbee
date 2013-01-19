@@ -2,6 +2,10 @@
 FED.Matches = Backbone.Collection.extend({
     // Specifiy model for this collection
     model: FED.MatchModel,
+    url: FED.config.api_url,
+    parse: function(data) {
+        return data.objects;
+    },
 
     // hetzelfde als for each
     // comparator: function(a, b) {

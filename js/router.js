@@ -22,7 +22,6 @@ $(function(){
             setTimeout(function(){
                 var matchModel = new FED.MatchModel();
                 self.matchesView = new FED.MatchesView({model: matchModel});
-                $("#page").addClass("loaded");
             }, 1000)
         },
 
