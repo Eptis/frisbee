@@ -8,10 +8,26 @@ FED.MatchesView = Backbone.View.extend({
     // Initialize view *(backbone method)*
     initialize: function () {
         // Specify collection for this view
+         var self = this;
         this.$el.html("");
 
-        this.collection = new FED.Matches(FED.matchesData);
-        this.mainCollection = this.collection
+
+
+
+        // haal collectie op
+        this.collection = new FED.Matches();
+        this.collection.fetch({
+            success: function(data) {
+                console.log(self.collection)
+                _.each(self.collection.models, function(model){
+                    model.url = model.get('resource_uri');
+                });
+                $("#page").addClass("loaded");
+            }
+        });
+
+
+
         // Render view
         this.$el.html(this.template);
         this.render();
