@@ -1,5 +1,6 @@
 var FED = FED || {};
 
+
 // Set data
 FED.gameData = [
     { set: 1, team1: "Boomsquad", team1Score: 4, team2: "Burning Snow", team2Score: 1 },

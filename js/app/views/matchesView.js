@@ -14,9 +14,6 @@ FED.MatchesView = Backbone.View.extend({
         FED.hidePage();
 
         self.$el.html(self.template);
-
-
-
         // haal collectie op
         this.collection = new FED.Matches();
         this.collection.fetch({
@@ -31,13 +28,6 @@ FED.MatchesView = Backbone.View.extend({
             }
         });
 
-
-
-        // Render view
-        // this.$el.html(this.template);
-        // this.render();
-        // this.$el.find("#filter").append(this.createSelect());
-
         // Attach custom event handler
         this.on("change:filterType", this.filterByDate, this);
 
@@ -51,15 +41,11 @@ FED.MatchesView = Backbone.View.extend({
     render: function () {
         this.$el.find("#matches").html("");
         var self = this;
-
-        // var template = _.template(this.template,{matches: this.collection.models});
-        // this.$el.find("#filter").append(this.createSelect());
-
         _.each(this.collection.models, function (item) {
             self.renderMatch(item);
         }, this);
 
-        
+
 
     },
 
@@ -67,17 +53,13 @@ FED.MatchesView = Backbone.View.extend({
     events: {
         "change #filter select": "setFilter",
         "click #add": "addMatch"
-        // "click #showForm": "showForm"
     },
 
-    // Render tournament *(custom method)*
     renderMatch: function (item) {
-        // Create new instance of MatchView
-
         var matchView = new FED.MatchView({
             model: item
         });
-        // Append the rendered HTML to the views element
+
         this.$el.find("#matches").append(matchView.render().el);
     },
 
