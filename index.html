@@ -28,7 +28,7 @@
           <span class="icon-bar"></span>
         </a>
 
-        <a href="#">Leaugevine Tournament Software</a>
+        <h1><a href="#">Leaugevine Tournament</a></h1>
       </header><!-- /header -->
 
 
@@ -149,19 +149,7 @@
                         <th>Points won</th>
                         <th>Points lost</th>
                     </tr>
-                    <tbody class="pool_list">
-                      <% _.each(teams, function(team){ %>
-                        <tr>
-                          <td><%= team.get("team") %></td>
-                          <td><%= team.get("Win") %></td>
-                          <td><%= team.get("Lost") %></td>
-                          <td><%= team.get("Sw") %></td>
-                          <td><%= team.get("Sl") %></td>
-                          <td><%= team.get("Pw") %></td>
-                          <td><%= team.get("Pl") %></td>
-                          <td><a href="#" class="delete">Delete</a></td>
-                        </tr>
-                      <% }); %>
+                    <tbody id="pool_list">
                     </tbody>
                 </table>
 
@@ -213,11 +201,22 @@
       </script>
 
       <script type="text/template" id="matchTemplate">
-        <td><%= end_date %></td>
-        <td><%= team1 %></td>
-        <td><%= team1Score + " - " + team2Score %></td>
-        <td><%= team2 %></td>
+        <td><%= start_time %></td>
+        <td><%= team_1.name %></td>
+        <td><%= team_1_score + " - " + team_2_score %></td>
+        <td><%= team_2.name %></td>
 
+        <td><a href="#" class="delete">Delete</a></td>
+      </script>
+
+      <script type="text/template" id="teamTemplate">
+        <td><%= team %></td>
+        <td><%= Win %></td>
+        <td><%= Lost %></td>
+        <td><%= Sw %></td>
+        <td><%= Sl %></td>
+        <td><%= Pw %></td>
+        <td><%= Pl %></td>
         <td><a href="#" class="delete">Delete</a></td>
       </script>
 
@@ -227,6 +226,7 @@
     <script src="js/libs/json2.js"></script>
     <script src="js/libs/underscore-min.js"></script>
     <script src="js/libs/backbone-min.js"></script>
+    <script src="js/libs/dateformat.js"></script>
 
 
     <!-- Application -->

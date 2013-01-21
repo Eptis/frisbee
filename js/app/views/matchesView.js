@@ -14,9 +14,6 @@ FED.MatchesView = Backbone.View.extend({
         FED.hidePage();
 
         self.$el.html(self.template);
-
-
-
         // haal collectie op
         this.collection = new FED.Matches();
         this.collection.fetch({
@@ -31,13 +28,6 @@ FED.MatchesView = Backbone.View.extend({
             }
         });
 
-
-
-        // Render view
-        // this.$el.html(this.template);
-        // this.render();
-        // this.$el.find("#filter").append(this.createSelect());
-
         // Attach custom event handler
         this.on("change:filterType", this.filterByDate, this);
 
@@ -51,18 +41,11 @@ FED.MatchesView = Backbone.View.extend({
     render: function () {
         this.$el.find("#matches").html("");
         var self = this;
-
-        // var template = _.template(this.template,{matches: this.collection.models});
-        // this.$el.find("#filter").append(this.createSelect());
-
-
         _.each(this.collection.models, function (item) {
             self.renderMatch(item);
         }, this);
 
-        setTimeout(function(){
-            $("#page").addClass("loaded");
-        }, 1000)
+
 
     },
 
@@ -70,17 +53,13 @@ FED.MatchesView = Backbone.View.extend({
     events: {
         "change #filter select": "setFilter",
         "click #add": "addMatch"
-        // "click #showForm": "showForm"
     },
 
-    // Render tournament *(custom method)*
     renderMatch: function (item) {
-        // Create new instance of MatchView
-
         var matchView = new FED.MatchView({
             model: item
         });
-        // Append the rendered HTML to the views element
+
         this.$el.find("#matches").append(matchView.render().el);
     },
 
@@ -104,6 +83,7 @@ FED.MatchesView = Backbone.View.extend({
             this.$el.find("#filter").find("select").remove().end().append(this.createSelect());
         } else {
             this.collection.add(new FED.MatchModel(newModel));
+            this.collection.reset(FED.matchesData);
         }
     },
 
@@ -115,6 +95,8 @@ FED.MatchesView = Backbone.View.extend({
                 FED.matchesData.splice(_.indexOf(FED.matchesData, item), 1);
             }
         });
+        this.collection.reset(FED.matchesData);
+        this.render();
     },
 
     // filter functies

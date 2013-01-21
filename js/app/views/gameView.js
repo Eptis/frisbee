@@ -60,13 +60,14 @@ FED.GameView = Backbone.View.extend({
     FED.gameData.push(newModel);
     if (_.indexOf(this.getTypes(), newModel.team1) === -1) {
       this.collection.add(new FED.SetModel(newModel));
+      // !!! reset moet tussen de add en de createSelect anders werkt het niet
+      this.collection.reset(FED.gameData);
       this.$el.find("#filter").find("select").remove().end().append(this.createSelect());
     } else {
       this.collection.add(new FED.SetModel(newModel));
+      this.collection.reset(FED.gameData);
     }
-    // re-render list
-    // this.render();
-    this.collection.reset(FED.gameData);
+    
 	},
 
 	// Remove Set model
@@ -77,6 +78,10 @@ FED.GameView = Backbone.View.extend({
         FED.gameData.splice(_.indexOf(FED.gameData, item), 1);
       }
     });
+
+    // !!! na het verwijderen de collectie resetten en weer opnieuw renderen
+    this.collection.reset(FED.gameData);
+    this.render();
 	},
 
 	// Get types for set select box
