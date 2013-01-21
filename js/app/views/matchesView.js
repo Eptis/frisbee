@@ -11,6 +11,9 @@ FED.MatchesView = Backbone.View.extend({
          var self = this;
         this.$el.html("");
 
+        FED.hidePage();
+
+        self.$el.html(self.template);
 
 
 
@@ -22,16 +25,18 @@ FED.MatchesView = Backbone.View.extend({
                 _.each(self.collection.models, function(model){
                     model.url = model.get('resource_uri');
                 });
-                $("#page").addClass("loaded");
+                FED.showPage();
+                self.render();
+                self.$el.find("#filter").append(self.createSelect());
             }
         });
 
 
 
         // Render view
-        this.$el.html(this.template);
-        this.render();
-        this.$el.find("#filter").append(this.createSelect());
+        // this.$el.html(this.template);
+        // this.render();
+        // this.$el.find("#filter").append(this.createSelect());
 
         // Attach custom event handler
         this.on("change:filterType", this.filterByDate, this);

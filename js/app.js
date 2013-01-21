@@ -33,7 +33,28 @@ FED.poolData = [
 { team: "Amsterdam Money Gang", Win: "1", Lost: "3", Sw: "6", Sl: "10", Pw: "30", Pl: "37"}
 ];
 
+FED.hidePage = function(){
+    $("#wrapper").append("<div id='loader'>loading</div>")
+}
+
+FED.showPage = function(){
+    $("#page").addClass("loaded")
+    $("#loader").remove();
+}
+
+FED.showNav = function(){
+    $("html").toggleClass("show-nav")
+}
+
+FED.hideNav = function(){
+    $("html").removeClass("show-nav")
+}
+
+$(".nav-btn").bind('click', function () {
+    FED.showNav();
+});
 
 
-
-
+$("#nav a").bind('click', function () {
+    FED.hideNav();
+});
