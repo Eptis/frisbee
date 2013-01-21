@@ -35,7 +35,7 @@ FED.poolData = [
 ];
 
 FED.hidePage = function(){
-    $("#wrapper").append("<div id='loader'>loading</div>")
+    $("#wrapper").append('<div id="loader"><div class="ball-arc2nd"><div class="point2nd"></div></div><div class="ball-arc3nd"><div class="point3nd"></div></div><div class="ball-arc4nd"><div class="point4nd"></div></div></div>')
 }
 
 FED.showPage = function(){
@@ -50,6 +50,7 @@ FED.showNav = function(){
 FED.hideNav = function(){
     $("html").removeClass("show-nav")
 }
+
 
 $(".nav-btn").bind('click', function () {
     FED.showNav();
