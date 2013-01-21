@@ -1,27 +1,29 @@
 // define teams view
 FED.PoolView = Backbone.View.extend({
     el: $("#page"),
+    collectionWrapper: $("#pool_list"),
 
     initialize: function () {
-    this.list = this.$el;
-    this.$el.html("");
+      this.list = this.$collectionWrapper;
+      this.$el.html("");
 
-        this.collection = new FED.PoolCollection(FED.poolData);
+      this.collection = new FED.PoolCollection(FED.poolData);
 
-    //this.render(this.collection.models);
-    // this.render();
-      var template = _.template($("#poolTemplate").html(),{teams: this.collection.models});
-      this.$el.html(template);
+      //this.render(this.collection.models);
+      // this.render();
+        var template = _.template($("#poolTemplate").html(),{teams: this.collection.models});
+        this.$el.html(template);
+      //   this.render();
+      this.$el.find("#filter").append(this.createSelect());
+      this.render();
 
-    this.$el.find("#filter").append(this.createSelect());
+      // // Attach custom event handler
+      this.on("change:filterType", this.filterByType, this);
 
-    // Attach custom event handler
-    this.on("change:filterType", this.filterByType, this);
-
-    // Attach eventhandlers to collection
-    this.collection.on("reset", this.render, this);
-    this.collection.on("add", this.renderTeam, this);
-    this.collection.on("remove", this.removeTeam, this);
+      // Attach eventhandlers to collection
+      this.collection.on("reset", this.render, this);
+      this.collection.on("add", this.renderTeam, this);
+      this.collection.on("remove", this.removeTeam, this);
     },
 
     // Attach event handlers to view elements
@@ -35,12 +37,12 @@ FED.PoolView = Backbone.View.extend({
 
   // Render the view
     render: function () {
-      this.$el.html("");
+      this.$el.find("#pool_list").html("");
 
 
-        //   _.each(this.collection.models, function (item) {
-        //   this.renderTeam(item);
-        // }, this);
+        _.each(this.collection.models, function (item) {
+            this.renderTeam(item);
+        }, this);
     },
 
     // Render team *(custom method)*
@@ -51,7 +53,7 @@ FED.PoolView = Backbone.View.extend({
           });
 
       // Append the rendered HTML to the views element
-          this.list.append(teamView.render().el);
+        this.$el.find("#pool_list").append(teamView.render().el);
       },
 
       // Add team model
@@ -66,9 +68,11 @@ FED.PoolView = Backbone.View.extend({
       FED.poolData.push(newModel);
       if (_.indexOf(this.getTypes(), newModel.Win) === -1) {
            this.collection.add(new FED.Team(newModel));
+           this.collection.reset(FED.poolData);
           this.$el.find("#filter").find("select").remove().end().append(this.createSelect());
       } else {
           this.collection.add(new FED.Team(newModel));
+          this.collection.reset(FED.poolData);
       }
   },
 
@@ -80,6 +84,7 @@ FED.PoolView = Backbone.View.extend({
               FED.poolData.splice(_.indexOf(FED.poolData, item), 1);
           }
       });
+      this.collection.reset(FED.poolData);
   },
 
     // Get types for Win select box
