@@ -31,8 +31,8 @@ $(function(){
             $("#page").removeClass("loaded");
 
             setTimeout(function(){
-                var setModel = new FED.SetModel();
-                this.gameView = new FED.GameView({model: setModel});
+                var gameModel = new FED.GameModel();
+                self.gamesView = new FED.GamesView({model: gameModel});
                 $("#page").addClass("loaded");
             }, 1000)
         },
@@ -44,7 +44,7 @@ $(function(){
 
             setTimeout(function(){
                 var teamModel = new FED.TeamModel();
-                this.poolView = new FED.PoolView({model: teamModel});
+                self.poolView = new FED.PoolView({model: teamModel});
                 $("#page").addClass("loaded");
             }, 1000)
         }
