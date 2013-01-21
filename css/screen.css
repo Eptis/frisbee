@@ -21,7 +21,7 @@ body{height:100%;}
 }
 
 
-#wrapper{padding:0 12px;}
+#wrapper{padding:0 12px; background: #fff;}
 
 #page{ margin-top: 0px; opacity: 0; width:100%;}
 #page{
