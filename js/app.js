@@ -34,12 +34,12 @@ FED.poolData = [
 ];
 
 FED.hidePage = function(){
-    $("#wrapper").append('<div id="loader"><div class="ball-arc2nd"><div class="point2nd"></div></div><div class="ball-arc3nd"><div class="point3nd"></div></div><div class="ball-arc4nd"><div class="point4nd"></div></div></div>')
+    $("#wrapper").append('<div class="loader"><div class="ball-arc2nd"><div class="point2nd"></div></div><div class="ball-arc3nd"><div class="point3nd"></div></div><div class="ball-arc4nd"><div class="point4nd"></div></div></div>')
 }
 
 FED.showPage = function(){
     $("#page").addClass("loaded")
-    $("#loader").remove();
+    $("#wrapper .loader").remove();
 }
 
 FED.showNav = function(){

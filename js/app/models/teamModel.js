@@ -10,6 +10,8 @@
       "Pw":"0",
       "Pl":"0"
     },
+    // url:,
+
     initialize: function () {
       // console.log("team model init")
     }

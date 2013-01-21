@@ -18,7 +18,7 @@ FED.MatchesView = Backbone.View.extend({
         this.collection = new FED.Matches();
         this.collection.fetch({
             success: function(data) {
-                console.log(self.collection)
+                // console.log(self.collection)
                 _.each(self.collection.models, function(model){
                     model.url = model.get('resource_uri');
                 });

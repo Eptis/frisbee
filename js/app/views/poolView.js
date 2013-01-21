@@ -2,7 +2,7 @@
 FED.PoolView = Backbone.View.extend({
     el: $("#page"),
     template: $("#poolTemplate").html(),
-    
+
     // Initialize view *(backbone method)*
     initialize: function () {
       var self = this;
@@ -15,8 +15,8 @@ FED.PoolView = Backbone.View.extend({
       // haal collectie op
       this.collection = new FED.PoolCollection();
       this.collection.fetch({
-        succes: function(data) {
-          console.log()(self.collection)
+        success: function(data) {
+          console.log(self.collection.toJSON());
           _.each(self.collection.models, function(model){
             model.url = model.get('resource_uri');
           });
