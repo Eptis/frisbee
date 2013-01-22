@@ -5,7 +5,7 @@ $(function(){
         routes: {
         // Define some URL routes
         '/schedule': 'showSchedule',
-        '/game': 'showGame',
+        '/games': 'showGame',
         '/ranking': 'showRanking',
 
         // Default

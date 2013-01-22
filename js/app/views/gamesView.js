@@ -15,16 +15,21 @@ FED.GamesView = Backbone.View.extend({
     // haal collectie op
     this.collection = new FED.Games();
     this.collection.fetch({
-        success: function(data) {
-            console.log(self.collection)
-            _.each(self.collection.models, function(model){
-                model.url = model.get('resource_uri');
-            });
-            FED.showPage();
-            self.render();
-            // self.$el.find("#filter").append(self.createSelect());
-        }
+      success: function(data) {
+        // console.log(data);
+        console.log(self.collection);
+        FED.gameData = self.collection.toJSON();
+
+        _.each(self.collection.models, function(model){
+            model.url = model.get('resource_uri');
+        });
+        FED.showPage();
+        self.render();
+        self.$el.find("#filter").append(self.createSelect());
+      }
     });
+
+    
 
     // Attach custom event handler
     this.on("change:filterType", this.filterByDate, this);
@@ -42,21 +47,71 @@ FED.GamesView = Backbone.View.extend({
     _.each(this.collection.models, function (item) {
         self.renderGame(item);
     }, this);
-  
+    
+    
   },
 
-  // Attach event handlers to view elements
-  // events: {
-  //     "change #filter select": "setFilter",
-  //     "click #add": "addMatch"
-  // },
+  //Attach event handlers to view elements
+  events: {
+    "change #filter select": "setFilter"
+    // "click #add": "addMatch"
+  },
 
   renderGame: function (item) {
     var gameView = new FED.GameView({
         model: item
     });
-
+    
     this.$el.find("#games").append(gameView.render().el);
   },
+
+
+
+  // filter functies
+    // Get dates for date select box
+    getTypes: function () {
+        return _.uniq(this.collection.pluck("start_time"), false, function (date) {
+            return date.toLowerCase();
+        });
+    },
+
+    // Create date select box
+    createSelect: function () {
+        var filter = this.$el.find("#filter"),
+            select = $("<select/>", {
+                html: "<option value='all'>all</option>"
+            });
+
+        _.each(this.getTypes(), function (item) {
+            var option = $("<option/>", {
+                value: item.toLowerCase(),
+                text: item.toLowerCase()
+            }).appendTo(select);
+        });
+        return select;
+    },
+
+    // Set filter
+    setFilter: function (e) {
+        this.filterType = e.currentTarget.value;
+
+        // Trigger custom event handler
+        this.trigger("change:filterType");
+    },
+
+    // Filter the collection
+    filterByDate: function () {
+        if (this.filterType === "all") {
+            this.collection.reset(FED.gameData);
+        } else {
+            // console.log(FED.matchesData)
+            this.collection.reset(FED.gameData, { silent: true });
+            var filterType = this.filterType,
+                filtered = _.filter(this.collection.models, function (item) {
+                    return item.get("start_time").toLowerCase() === filterType;
+                });
+            this.collection.reset(filtered);
+        }
+    }
 
 });

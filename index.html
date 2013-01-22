@@ -17,7 +17,7 @@
         <ul class="nav">
           <li><a href="#/schedule">Schedule</a></li>
           <li><a href="#/ranking">Ranking</a></li>
-          <li><a href="#/game">Game</a></li>
+          <li><a href="#/games">Games</a></li>
         </ul>
     </nav>
     <div id="wrapper" class="container-fluid">
@@ -41,33 +41,27 @@
     </div>
 
     <script id="gamesTemplate" type="text/template">
-        <h1 id="frisbee_game">Frisbee game</h1>
+        
 
       <article id="game">
 
-        <div class="row-fluid">
-          <div class="span12">
-            <div class="row-fluid">
-
-              
-            </div>
-            
-            <table class="table">
-
-              <tr>
-                <th>Date</th>
-                <th>Team</th>
-                <th>Result</th>
-                <th>Team</th>
-              </tr>
-
-              <tbody id="games">
-
-              </tbody>
-
-            </table>
-          </div>
+        <h1 id="frisbee_game">Frisbee games</h1>
+        <div id="filter">
+          <label>Filter:</label>
         </div>
+            
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Team</th>
+              <th>Result</th>
+              <th>Team</th>
+            </tr>
+          </thead>
+          <tbody id="games">
+          </tbody>
+        </table>
 
       </article>
 
@@ -80,14 +74,13 @@
 
             <article id="pool">
             <nav class="actions">
-                        <ul>
-                            <li id="filter">
-                                <label>Show:</label>
-
-                            </li>
-                            <li><button id="showForm">Add new team</button></li>
-                        </ul>
-                    </nav>
+              <ul>
+                <li id="filter">
+                    <label>Show:</label>
+                </li>
+                <li><button id="showForm">Add new team</button></li>
+              </ul>
+            </nav>
 
 
 
@@ -121,41 +114,41 @@
       <script id="matchesTemplate" type="text/template">
 
       <div id="schedule">
-      <h1 id="frisbee_league">Frisbee league</h1>
-      <div id="filter">
-        <label>Filter:</label>
+        <h1 id="frisbee_league">Frisbee league</h1>
+        <div id="filter">
+          <label>Filter:</label>
+        </div>
+
+        <form id="addForm" action="#" class="form-inline">
+          <label>Date</label>
+          <input id="date" type="text"/><br/>
+          <label>team1</label>
+          <input id="team1" type="text"/>
+          <label>score</label>
+          <input id="team1Score" type="number"/>
+          <br/>
+          <label>team2</label>
+          <input id="team2" type="text"/>
+          <label>score</label>
+          <input id="team2Score" type="number"/><br/>
+          <input type="submit" id="add" value="Voeg toe"/>
+        </form>
+
+        <table class="table">
+
+          <tr>
+            <th>Date</th>
+            <th>Team</th>
+            <th>Result</th>
+            <th>Team</th>
+          </tr>
+
+          <tbody id="matches">
+
+          </tbody>
+
+        </table>
       </div>
-
-      <form id="addForm" action="#" class="form-inline">
-        <label>Date</label>
-        <input id="date" type="text"/><br/>
-        <label>team1</label>
-        <input id="team1" type="text"/>
-        <label>score</label>
-        <input id="team1Score" type="number"/>
-        <br/>
-        <label>team2</label>
-        <input id="team2" type="text"/>
-        <label>score</label>
-        <input id="team2Score" type="number"/><br/>
-        <input type="submit" id="add" value="Voeg toe"/>
-      </form>
-
-      <table class="table">
-
-        <tr>
-          <th>Date</th>
-          <th>Team</th>
-          <th>Result</th>
-          <th>Team</th>
-        </tr>
-
-        <tbody id="matches">
-
-        </tbody>
-
-      </table>
-    </div>
 
       </script>
 
