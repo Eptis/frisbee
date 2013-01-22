@@ -1,5 +1,4 @@
 var FED = FED || {};
-
 // Set data
 FED.gameData = [
     { set: 1, team1: "Boomsquad", team1Score: 4, team2: "Burning Snow", team2Score: 1 },
@@ -49,7 +48,6 @@ FED.showNav = function(){
 FED.hideNav = function(){
     $("html").removeClass("show-nav")
 }
-
 
 $(".nav-btn").bind('click', function () {
     FED.showNav();

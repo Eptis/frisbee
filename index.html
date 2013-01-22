@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="css/bootstrap-theme-cosmo.css" type="text/css" media="screen" >
     <link rel="stylesheet" href="css/bootstrap-responsive.min.css" type="text/css"  >
     <link rel="stylesheet" href="css/screen.css" />
-    <!-- <link rel="stylesheet" href="css/loader.css" /> -->
     <!-- <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" title="no title" charset="utf-8">     -->
   </head>
   <body>
@@ -18,11 +17,10 @@
         <ul class="nav">
           <li><a href="#/schedule">Schedule</a></li>
           <li><a href="#/ranking">Ranking</a></li>
-          <li><a href="#/game">Game</a></li>
+          <li><a href="#/games">Games</a></li>
         </ul>
     </nav>
     <div id="wrapper" class="container-fluid">
-
       <header id="top" class="">
         <a class="nav-btn" id="nav-open-btn" >
           <span class="icon-bar"></span>
@@ -42,75 +40,28 @@
 
     </div>
 
-    <script id="gameTemplate" type="text/template">
-        <h1 id="frisbee_game">Frisbee game</h1>
+    <script id="gamesTemplate" type="text/template">
+        
 
       <article id="game">
 
-        <div class="row-fluid">
-          <nav class="actions span12">
-            <ul>
-              <li id="filter">
-                <label>Show:</label>
-              </li>
-              <li class="pull-left"><button class="btn" id="showForm">Add new Set</button></li>
-            </ul>
-          </nav>
+        <h1 id="frisbee_game">Frisbee games</h1>
+        <div id="filter">
+          <label>Filter:</label>
         </div>
-
-
-
-        <div class="row-fluid">
-          <div class="span12">
-            <div class="row-fluid">
-
-              <div class="span6">
-                <form id="addSet" action="#" class="form-add cube hide">
-
-                  <legend>add set</legend>
-
-                  <label for="set">set:</label>
-                  <input id="set" placeholder="set" type="number" />
-
-                  <label for="team1">team1:</label>
-                  <input id="team1" placeholder="team 1" type="text" />
-
-                  <!-- <label for="team1Score">team 1 score:</label> -->
-                  <label for="team1Score">score:</label>
-                  <input id="team1Score"  placeholder="t1 score" type="number" class="score" />
-                  <span> - </span>
-                  <!-- <label for="team2Score">team 2 score:</label> -->
-                  <input id="team2Score"  placeholder="t2 score" type="number" class="score" />
-
-                  <label for="team2">team2:</label>
-                  <input id="team2" placeholder="team 2" type="text" />
-
-                  <div class="clearfix">
-                    <input type="submit" id="add" value="Add" class="btn btn-primary" />
-                  </div>
-                </form>
-              </div>
-
-            </div>
-            <table class="table">
+            
+        <table class="table">
+          <thead>
             <tr>
-              <th>Set</th>
+              <th>Date</th>
               <th>Team</th>
-              <th>Points</th>
+              <th>Result</th>
               <th>Team</th>
             </tr>
-              <% _.each(games, function(game){ %>
-                <tr>
-                  <td class="set"><%= game.get("set") %></td>
-                  <td class="teamone"><%= game.get("team1") %></td>
-                  <td class="score"><%= game.get("team1Score") %> - <%= game.get("team2Score") %></td>
-                  <td class="teamtwo"><%= game.get("team2") %></td>
-                  <td class="actions"><a href="#" class="delete"><i class="icon-remove icon-red"></i></a></td>
-                </tr>
-              <% }); %>
-            </table>
-          </div>
-        </div>
+          </thead>
+          <tbody id="games">
+          </tbody>
+        </table>
 
       </article>
 
@@ -122,94 +73,113 @@
         <script id="poolTemplate" type="text/template">
 
             <article id="pool">
+            <nav class="actions">
+              <ul>
+                <li id="filter">
+                    <label>Show:</label>
+                </li>
+                <li><button id="showForm">Add new team</button></li>
+              </ul>
+            </nav>
 
 
 
-
-
+            <form id="addTeam" action="#" class="form-2">
+                        <h1>Add team</h1>
+                        <label for="team">Team</label><input id="team" placeholder="Team naam" type="text" />
+                        <div class="clearfix"><input type="submit" id="add" value="Add" /></div>
+                    </form>
 
                 <h1 id="frisbee_ranking">Frisbee - ranking</h1>
                 <table class="table">
                     <tr>
-                          <th>Team</th>
-                          <th>Gewonnen</th>
-                          <th>Verloren</th>
-                          <th>Punten voor</th>
-                          <th>gemiddelde</th>
-                          <th>Punten toegestaan</th>
-                          <th>Punten gescoord</th>
+                        <th>Team</th>
+                        <th>W</th>
+                        <th>L</th>
+                        <th>Sets won</th>
+                        <th>Sets lost</th>
+                        <th>Points won</th>
+                        <th>Points lost</th>
                     </tr>
                     <tbody id="pool_list">
                     </tbody>
                 </table>
 
-                </article>
+
 
 
         </script>
-         <script type="text/template" id="teamTemplate">
-        <td><%= team.name %></td>
-        <td><%= wins %></td>
-        <td><%= losses %></td>
-        <td><%= points_scored %></td>
-        <td><%= plus_minus %></td>
-        <td><%= points_allowed %></td>
-        <td><%= points_scored %></td>
-
-      </script>
 
 
       <script id="matchesTemplate" type="text/template">
 
       <div id="schedule">
-      <h1 id="frisbee_league">Frisbee league</h1>
-      <div id="filter">
-        <label>Filter:</label>
+        <h1 id="frisbee_league">Frisbee league</h1>
+        <div id="filter">
+          <label>Filter:</label>
+        </div>
+
+        <form id="addForm" action="#" class="form-inline">
+          <label>Date</label>
+          <input id="date" type="text"/><br/>
+          <label>team1</label>
+          <input id="team1" type="text"/>
+          <label>score</label>
+          <input id="team1Score" type="number"/>
+          <br/>
+          <label>team2</label>
+          <input id="team2" type="text"/>
+          <label>score</label>
+          <input id="team2Score" type="number"/><br/>
+          <input type="submit" id="add" value="Voeg toe"/>
+        </form>
+
+        <table class="table">
+
+          <tr>
+            <th>Date</th>
+            <th>Team</th>
+            <th>Result</th>
+            <th>Team</th>
+          </tr>
+
+          <tbody id="matches">
+
+          </tbody>
+
+        </table>
       </div>
-
-      <form id="addForm" action="#" class="form-inline">
-        <label>Date</label>
-        <input id="date" type="text"/><br/>
-        <label>team1</label>
-        <input id="team1" type="text"/>
-        <label>score</label>
-        <input id="team1Score" type="number"/>
-        <br/>
-        <label>team2</label>
-        <input id="team2" type="text"/>
-        <label>score</label>
-        <input id="team2Score" type="number"/><br/>
-        <input type="submit" id="add" value="Voeg toe"/>
-      </form>
-
-      <table class="table">
-
-        <tr>
-          <th>Date</th>
-          <th>Team</th>
-          <th>Result</th>
-          <th>Team</th>
-        </tr>
-
-        <tbody id="matches">
-
-        </tbody>
-
-      </table>
-    </div>
 
       </script>
 
-      <script type="text/template" id="matchTemplate">
-        <td><%= dateFormat(start_time, "ddd, mmm dS, yyyy, hh:MM") %></td>
+      <script type="text/template" id="gameTemplate">
+        <td><%= start_time %></td>
         <td><%= team_1.name %></td>
         <td><%= team_1_score + " - " + team_2_score %></td>
         <td><%= team_2.name %></td>
 
-        // <td><a href="#" class="delete">Delete</a></td>
+        <td><a href="#" class="delete">Delete</a></td>
       </script>
 
+      <script type="text/template" id="matchTemplate">
+        <td><%= start_time %></td>
+        <td><%= team_1.name %></td>
+        <td><%= team_1_score + " - " + team_2_score %></td>
+        <td><%= team_2.name %></td>
 
+        <td><a href="#" class="delete">Delete</a></td>
+      </script>
+
+      <script type="text/template" id="teamTemplate">
+        <td><%= team %></td>
+        <td><%= Win %></td>
+        <td><%= Lost %></td>
+        <td><%= Sw %></td>
+        <td><%= Sl %></td>
+        <td><%= Pw %></td>
+        <td><%= Pl %></td>
+        <td><a href="#" class="delete">Delete</a></td>
+      </script>
 
     <!-- Libraries -->
     <script src="js/libs/jquery-1.7.1.min.js"></script>
@@ -224,6 +194,7 @@
     <script src="js/app.js"></script>
     <script src="js/config.js"></script>
     <script src="js/app/models/setModel.js"></script>
+    <script src="js/app/models/gameModel.js"></script>
     <script src="js/app/models/matchModel.js"></script>
     <script src="js/app/models/teamModel.js"></script>
     <script src="js/app/collections/gameCollection.js"></script>
@@ -231,6 +202,7 @@
     <script src="js/app/collections/matchesCollection.js"></script>
     <script src="js/app/views/setView.js"></script>
     <script src="js/app/views/gameView.js"></script>
+    <script src="js/app/views/gamesView.js"></script>
     <script src="js/app/views/matchView.js"></script>
     <script src="js/app/views/matchesView.js"></script>
     <script src="js/app/views/poolView.js"></script>

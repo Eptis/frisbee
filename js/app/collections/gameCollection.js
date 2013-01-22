@@ -1,6 +1,10 @@
 // define game, a collection of sets
-FED.GameCollection = Backbone.Collection.extend({
-    model: FED.SetModel,
+FED.Games = Backbone.Collection.extend({
+  model: FED.MatchModel,
+  url: FED.config.games_api_url,
+  parse: function(data) {
+      return data.objects;
+  },
 	initizialize:function() {
 
 	},
