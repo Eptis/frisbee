@@ -1,6 +1,7 @@
 // define teams view
 FED.PoolView = Backbone.View.extend({
     el: $("#page"),
+    url: $("#page"),
     template: $("#poolTemplate").html(),
 
     // Initialize view *(backbone method)*
@@ -15,17 +16,16 @@ FED.PoolView = Backbone.View.extend({
       // haal collectie op
       this.collection = new FED.PoolCollection();
       this.collection.fetch({
-        success: function(data) {
-          console.log(self.collection.toJSON());
-          _.each(self.collection.models, function(model){
-            model.url = model.get('resource_uri');
-          });
-          FED.showPage();
-          self.render();
-          self.$el.find('#filter').append(self.createSelect());
-        }
-      });
-
+            success: function(data) {
+                // console.log(self.collection)
+                _.each(self.collection.models, function(model){
+                    model.url = model.get('resource_uri');
+                });
+                FED.showPage();
+                self.render();
+                self.$el.find("#filter").append(self.createSelect());
+            }
+        });
 
       // // Attach custom event handler
       this.on("change:filterType", this.filterByType, this);

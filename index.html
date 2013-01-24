@@ -41,7 +41,7 @@
     </div>
 
     <script id="gamesTemplate" type="text/template">
-        
+
 
       <article id="game">
 
@@ -49,7 +49,7 @@
         <div id="filter">
           <label>Filter:</label>
         </div>
-            
+
         <table class="table">
           <thead>
             <tr>
@@ -151,18 +151,19 @@
       </div>
 
       </script>
+      <!-- <a href="#/games/<%=id%>" > -->
 
       <script type="text/template" id="gameTemplate">
-        <td><%= start_time %></td>
-        <td><%= team_1.name %></td>
+        <td><%= dateFormat(start_time, "ddd, mmm dS, yyyy, hh:MM") %></td>
+        <td class="model" data-id="<%=id%>"><%= team_1.name %></td>
         <td><%= team_1_score + " - " + team_2_score %></td>
         <td><%= team_2.name %></td>
 
-        <td><a href="#" class="delete">Delete</a></td>
+
       </script>
 
       <script type="text/template" id="matchTemplate">
-        <td><%= start_time %></td>
+        <td><%= dateFormat(start_time, "ddd, mmm dS, yyyy, hh:MM") %></td>
         <td><%= team_1.name %></td>
         <td><%= team_1_score + " - " + team_2_score %></td>
         <td><%= team_2.name %></td>

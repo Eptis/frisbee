@@ -29,7 +29,7 @@ FED.GamesView = Backbone.View.extend({
       }
     });
 
-    
+
 
     // Attach custom event handler
     this.on("change:filterType", this.filterByDate, this);
@@ -47,23 +47,26 @@ FED.GamesView = Backbone.View.extend({
     _.each(this.collection.models, function (item) {
         self.renderGame(item);
     }, this);
-    
-    
+
+
   },
 
   //Attach event handlers to view elements
   events: {
-    "change #filter select": "setFilter"
-    // "click #add": "addMatch"
+    "change #filter select": "setFilter",
+    "click .model": "getClickedModel"
   },
 
   renderGame: function (item) {
     var gameView = new FED.GameView({
         model: item
     });
-    
+
     this.$el.find("#games").append(gameView.render().el);
   },
+
+
+
 
 
 
@@ -112,6 +115,28 @@ FED.GamesView = Backbone.View.extend({
                 });
             this.collection.reset(filtered);
         }
-    }
+    },
+
+    getClickedModel: function(e){
+        e.preventDefault();
+        var id = $(e.currentTarget).data("id");
+        var item = this.collection.get(id);
+
+         item.save( item.toJSON(), {
+              // The second parameter takes request options
+              success: function(data) {
+                  // On succes set the new url for the model
+                  item.url = item.get('resource_uri');
+              },
+              error: function(data) {
+                  // On error log the error in the console
+                  console.log('error');
+              },
+              // Define an authorization header to allow for posting to the API
+              headers: {
+                  Authorization: FED.config.header_access
+              }
+        });
+   }
 
 });

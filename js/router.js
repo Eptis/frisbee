@@ -5,11 +5,12 @@ $(function(){
         routes: {
         // Define some URL routes
         '/schedule': 'showSchedule',
-        '/games': 'showGame',
+        '/games': 'showGames',
         '/ranking': 'showRanking',
+        '/games/:id': 'showGame',
 
         // Default
-        '*path': 'defaultAction'
+        '*path': 'showSchedule'
         },
 
         el: $("#page"),
@@ -22,6 +23,18 @@ $(function(){
             setTimeout(function(){
                 var matchModel = new FED.MatchModel();
                 self.matchesView = new FED.MatchesView({model: matchModel});
+            }, 1000)
+        },
+
+        showGames: function (actions) {
+            var self = this;
+
+            $("#page").removeClass("loaded");
+
+            setTimeout(function(){
+                var gameModel = new FED.GameModel();
+                self.gamesView = new FED.GamesView({model: gameModel});
+                $("#page").addClass("loaded");
             }, 1000)
         },
 

@@ -7,4 +7,5 @@ FED.GameModel = Backbone.Model.extend({
     "team_2": "undefined",
     "team_2_score": "undefined"
   }
+
 });
