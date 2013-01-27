@@ -1,13 +1,14 @@
 // file: router.js
 $(function(){
+    FED.currentPage = 0;
+
     FED.AppRouter = Backbone.Router.extend({
         // Define routes to pages
         routes: {
         // Define some URL routes
-        '/schedule': 'showSchedule',
-        '/games': 'showGames',
-        '/ranking': 'showRanking',
-        '/games/:id': 'showGame',
+        '/schedule': 'showSchedule', //0
+        '/games': 'showGames',       //1
+        '/ranking': 'showRanking',   //2
 
         // Default
         '*path': 'showSchedule'
@@ -17,18 +18,21 @@ $(function(){
 
         showSchedule: function (actions) {
             var self = this;
-
+            $(".menuButton.schedule").addClass("active").siblings().removeClass("active")
             $("#page").removeClass("loaded");
 
             setTimeout(function(){
                 var matchModel = new FED.MatchModel();
                 self.matchesView = new FED.MatchesView({model: matchModel});
             }, 1000)
+
+            FED.currentPage = 0;
         },
 
         showGames: function (actions) {
             var self = this;
 
+            $(".menuButton.games").addClass("active").siblings().removeClass("active")
             $("#page").removeClass("loaded");
 
             setTimeout(function(){
@@ -36,10 +40,12 @@ $(function(){
                 self.gamesView = new FED.GamesView({model: gameModel});
                 $("#page").addClass("loaded");
             }, 1000)
+            FED.currentPage = 1;
         },
 
         showGame: function (actions) {
             var self = this;
+            $(".menuButton.schedule").addClass("active").siblings().removeClass("active")
 
             $("#page").removeClass("loaded");
 
@@ -48,10 +54,13 @@ $(function(){
                 self.gamesView = new FED.GamesView({model: gameModel});
                 $("#page").addClass("loaded");
             }, 1000)
+            FED.currentPage = 2;
+
         },
 
         showRanking: function (actions) {
             var self = this;
+            $(".menuButton.ranking").addClass("active").siblings().removeClass("active")
 
             $("#page").removeClass("loaded");
 
@@ -68,6 +77,9 @@ $(function(){
 
 
     Backbone.history.start({ pushState: false });
+
+
+
 
 });
 

@@ -7,7 +7,6 @@ FED.MatchesView = Backbone.View.extend({
 
     // Initialize view *(backbone method)*
     initialize: function () {
-        // Specify collection for this view
          var self = this;
         this.$el.html("");
 
@@ -18,7 +17,9 @@ FED.MatchesView = Backbone.View.extend({
         this.collection = new FED.Matches();
         this.collection.fetch({
             success: function(data) {
-                // console.log(self.collection)
+                console.log(self.collection)
+                FED.matchesData = self.collection.toJSON();
+
                 _.each(self.collection.models, function(model){
                     model.url = model.get('resource_uri');
                 });
@@ -60,7 +61,7 @@ FED.MatchesView = Backbone.View.extend({
             model: item
         });
 
-        this.$el.find("#matches").append(matchView.render().el);
+        this.$el.find("#matches").append(matchView.render().el).removeClass("hide");
     },
 
     showForm: function(e){
@@ -102,7 +103,7 @@ FED.MatchesView = Backbone.View.extend({
     // filter functies
     // Get dates for date select box
     getTypes: function () {
-        return _.uniq(this.collection.pluck("date"), false, function (date) {
+        return _.uniq(this.collection.pluck("start_time"), false, function (date) {
             return date.toLowerCase();
         });
     },
@@ -117,7 +118,7 @@ FED.MatchesView = Backbone.View.extend({
         _.each(this.getTypes(), function (item) {
             var option = $("<option/>", {
                 value: item.toLowerCase(),
-                text: item.toLowerCase()
+                text: dateFormat(item, "ddd, mmm dS, yyyy, hh:MM")
             }).appendTo(select);
         });
         return select;
@@ -140,10 +141,36 @@ FED.MatchesView = Backbone.View.extend({
             this.collection.reset(FED.matchesData, { silent: true });
             var filterType = this.filterType,
                 filtered = _.filter(this.collection.models, function (item) {
-                    return item.get("date").toLowerCase() === filterType;
+                    return item.get("start_time").toLowerCase() === filterType;
                 });
             this.collection.reset(filtered);
         }
+    },
+
+    updateCollection: function(){
+        console.log("update matches")
+         // Specify collection for this view
+         var self = this;
+        this.$el.html("");
+
+        FED.hidePage();
+
+        self.$el.html(self.template);
+        // haal collectie op
+        this.collection = new FED.Matches();
+        this.collection.fetch({
+            success: function(data) {
+                console.log(self.collection)
+                FED.matchesData = self.collection.toJSON();
+
+                _.each(self.collection.models, function(model){
+                    model.url = model.get('resource_uri');
+                });
+                FED.showPage();
+                self.render();
+                self.$el.find("#filter").append(self.createSelect());
+            }
+        });
     }
 
 

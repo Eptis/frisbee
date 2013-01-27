@@ -18,17 +18,18 @@ FED.PoolView = Backbone.View.extend({
       this.collection.fetch({
             success: function(data) {
                 // console.log(self.collection)
+                FED.poolData = self.collection;
                 _.each(self.collection.models, function(model){
                     model.url = model.get('resource_uri');
                 });
                 FED.showPage();
                 self.render();
-                self.$el.find("#filter").append(self.createSelect());
+                // self.$el.find("#filter").append(self.createSelect());
             }
         });
 
       // // Attach custom event handler
-      this.on("change:filterType", this.filterByType, this);
+      // this.on("change:filterType", this.filterByType, this);
 
       // Attach eventhandlers to collection
       this.collection.on("reset", this.render, this);
@@ -38,7 +39,7 @@ FED.PoolView = Backbone.View.extend({
 
     // Attach event handlers to view elements
   events: {
-    "change #filter select": "setFilter",
+    // "change #filter select": "setFilter",
     "click #add": "addTeam",
     "click #showForm": "showForm"
   },

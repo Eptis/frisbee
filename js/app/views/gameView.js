@@ -1,6 +1,7 @@
 // # Define Match view #
 FED.GameView = Backbone.View.extend({
-  tagName: "tr",
+  tagName: "li",
+  className: "list",
   template: $("#gameTemplate").html(),
 
   // Attach event handler to view elements

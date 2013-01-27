@@ -1,7 +1,8 @@
 
 // # Define Match view #
 FED.MatchView = Backbone.View.extend({
-    tagName: "tr",
+    tagName: "li",
+    className: "list",
     template: $("#matchTemplate").html(),
 
   // Attach event handler to view elements
@@ -13,15 +14,15 @@ FED.MatchView = Backbone.View.extend({
   deleteMatch: function (e) {
     e.preventDefault();
 
-    var removedType = this.model.get("date").toLowerCase();
+    // var removedType = this.model.get("date").toLowerCase();
 
-    this.model.destroy();
-    this.remove();
+    // this.model.destroy();
+    // this.remove();
 
 
-    if (_.indexOf(FED.app_router.matchesView.getTypes(), removedType) === -1) {
-          FED.app_router.matchesView.$el.find("#filter select").children("[value='" + removedType + "']").remove();
-      }
+    // if (_.indexOf(FED.app_router.matchesView.getTypes(), removedType) === -1) {
+    //       FED.app_router.matchesView.$el.find("#filter select").children("[value='" + removedType + "']").remove();
+    //   }
   },
 
     render: function () {

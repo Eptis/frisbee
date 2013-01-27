@@ -17,14 +17,13 @@ FED.GamesView = Backbone.View.extend({
     this.collection.fetch({
       success: function(data) {
         // console.log(data);
-        console.log(self.collection);
         FED.gameData = self.collection.toJSON();
 
         _.each(self.collection.models, function(model){
             model.url = model.get('resource_uri');
         });
-        FED.showPage();
         self.render();
+        FED.showPage();
         self.$el.find("#filter").append(self.createSelect());
       }
     });
@@ -51,10 +50,11 @@ FED.GamesView = Backbone.View.extend({
 
   },
 
+
   //Attach event handlers to view elements
   events: {
     "change #filter select": "setFilter",
-    "click .model": "getClickedModel"
+    "click .formSubmit": "updateGame"
   },
 
   renderGame: function (item) {
@@ -64,6 +64,72 @@ FED.GamesView = Backbone.View.extend({
 
     this.$el.find("#games").append(gameView.render().el);
   },
+
+
+  updateGame: function(e){
+        e.preventDefault();
+
+        var game = $(e.currentTarget).parent(".game");
+        var form = game.find("form");
+        var gameId = $(e.currentTarget).parent().parent().parent().data("element");
+
+
+
+        var newModel = {};
+
+        $(e.currentTarget).parent("form").find("input").each(function (i, el) {
+              newModel[el.name] = $(el).val();
+              if($(el).val() == ""){
+                $(el).addClass("errorField")
+              }else{
+                $(el).val("")
+              }
+        });
+
+
+
+
+        var model = this.collection.get(gameId);
+
+        var data = {
+            id: '88516',
+            start_time: model.get("start_time"),
+            team_1_score: 5,
+            team_2_score: 5,
+            season_id: FED.config.season_id
+        }
+
+        model.set(data)
+
+
+        // Update a model to the API, this is a "PUT" request
+        // the save function takes two parameters,
+        // console.log(model)
+        model.url = model.get('resource_uri');
+
+        this.collection.reset(FED.gameData)
+
+        // model.save(
+        //     // The first parameter is the data object
+        //     data, {
+        //         // The second parameter takes request options
+        //         success: function(data) {
+        //             // On succes set the new url for the model
+
+        //               $(el).find(".errorField").removeClass("errorField")
+        //             console.log('succes');
+        //         },
+        //         error: function(data) {
+        //             // On error log the error in the console
+        //             console.log('error');
+        //         },
+        //         // Define an authorization header to allow for posting to the API
+        //         headers: {
+        //             Authorization: FED.config.header_access
+        //         }
+        //     }
+        // );
+    },
 
 
 
@@ -115,28 +181,6 @@ FED.GamesView = Backbone.View.extend({
                 });
             this.collection.reset(filtered);
         }
-    },
-
-    getClickedModel: function(e){
-        e.preventDefault();
-        var id = $(e.currentTarget).data("id");
-        var item = this.collection.get(id);
-
-         item.save( item.toJSON(), {
-              // The second parameter takes request options
-              success: function(data) {
-                  // On succes set the new url for the model
-                  item.url = item.get('resource_uri');
-              },
-              error: function(data) {
-                  // On error log the error in the console
-                  console.log('error');
-              },
-              // Define an authorization header to allow for posting to the API
-              headers: {
-                  Authorization: FED.config.header_access
-              }
-        });
-   }
+    }
 
 });
