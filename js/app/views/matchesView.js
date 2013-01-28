@@ -26,6 +26,9 @@ FED.MatchesView = Backbone.View.extend({
                 FED.showPage();
                 self.render();
                 self.$el.find("#filter").append(self.createSelect());
+            },
+            error: function(){
+                alert("Could not retreive data, please try again later")
             }
         });
 
@@ -169,6 +172,9 @@ FED.MatchesView = Backbone.View.extend({
                 FED.showPage();
                 self.render();
                 self.$el.find("#filter").append(self.createSelect());
+            },
+            error: function(){
+                alert("Could not retreive data, please try again later")
             }
         });
     }

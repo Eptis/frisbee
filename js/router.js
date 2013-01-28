@@ -19,7 +19,7 @@ $(function(){
         showSchedule: function (actions) {
             var self = this;
             $(".menuButton.schedule").addClass("active").siblings().removeClass("active")
-            $("#page").removeClass("loaded");
+            FED.hidePage();
 
             setTimeout(function(){
                 var matchModel = new FED.MatchModel();
@@ -33,7 +33,7 @@ $(function(){
             var self = this;
 
             $(".menuButton.games").addClass("active").siblings().removeClass("active")
-            $("#page").removeClass("loaded");
+            FED.hidePage();
 
             setTimeout(function(){
                 var gameModel = new FED.GameModel();
@@ -43,32 +43,20 @@ $(function(){
             FED.currentPage = 1;
         },
 
-        showGame: function (actions) {
-            var self = this;
-            $(".menuButton.schedule").addClass("active").siblings().removeClass("active")
-
-            $("#page").removeClass("loaded");
-
-            setTimeout(function(){
-                var gameModel = new FED.GameModel();
-                self.gamesView = new FED.GamesView({model: gameModel});
-                $("#page").addClass("loaded");
-            }, 1000)
-            FED.currentPage = 2;
-
-        },
 
         showRanking: function (actions) {
             var self = this;
             $(".menuButton.ranking").addClass("active").siblings().removeClass("active")
 
-            $("#page").removeClass("loaded");
+            FED.hidePage();
 
             setTimeout(function(){
                 var teamModel = new FED.TeamModel();
                 self.poolView = new FED.PoolView({model: teamModel});
                 $("#page").addClass("loaded");
             }, 1000)
+            FED.currentPage = 2;
+
         }
     });
 
@@ -80,6 +68,20 @@ $(function(){
 
 
 
+
+
+    $("#pulldown").on("click", function(){
+        if(FED.currentPage == 0){
+            FED.hidePage();
+            FED.app_router.matchesView.updateCollection();
+        }else if(FED.currentPage == 1){
+            FED.hidePage();
+            FED.app_router.gamesView.updateCollection();
+        }else if(FED.currentPage == 2){
+            FED.hidePage();
+            FED.app_router.poolView.updateCollection();
+        }
+    })
 
 });
 

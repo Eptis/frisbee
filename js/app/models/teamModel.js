@@ -2,17 +2,12 @@
   FED.TeamModel = Backbone.Model.extend({
     // Set model defaults *(backbone method)*
     defaults: {
-      "team": "Teamnaam onbekend",
-      "Win":"0",
-      "Lost":"0",
-      "Sw":"0",
-      "Sl":"0",
-      "Pw":"0",
-      "Pl":"0"
-    },
-    // url:,
-
-    initialize: function () {
-      // console.log("team model init")
+      "team.name": "Teamnaam onbekend",
+      "games_played":"0",
+      "wins":"0",
+      "losses":"0",
+      "points_scored":"0",
+      "points_allowed":"0",
+      "plus_minus":"0"
     }
 });

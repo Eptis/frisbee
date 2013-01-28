@@ -4,25 +4,26 @@ FED.GameView = Backbone.View.extend({
   className: "list",
   template: $("#gameTemplate").html(),
 
-  // Attach event handler to view elements
-  events: {
-    "click .delete": "deleteGame"
-  },
 
-    // Delete Match model
-  deleteGame: function (e) {
-  e.preventDefault();
+  // // Attach event handler to view elements
+  // events: {
+  //   "click .delete": "deleteGame"
+  // },
 
-  // var removedType = this.model.get("start_time").toLowerCase();
+  //   // Delete Match model
+  // deleteGame: function (e) {
+  //   e.preventDefault();
 
-  this.model.destroy();
-  this.remove();
+  //   // var removedType = this.model.get("start_time").toLowerCase();
+
+  //   this.model.destroy();
+  //   this.remove();
 
 
-  // if (_.indexOf(FED.app_router.gamesView.getTypes(), removedType) === -1) {
-  //   FED.app_router.gamesView.$el.find("#filter select").children("[value='" + removedType + "']").remove();
-  // }
-  },
+  //   // if (_.indexOf(FED.app_router.gamesView.getTypes(), removedType) === -1) {
+  //   //   FED.app_router.gamesView.$el.find("#filter select").children("[value='" + removedType + "']").remove();
+  //   // }
+  // },
 
   render: function () {
     var tmpl = _.template(this.template);

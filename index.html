@@ -12,8 +12,7 @@
     <link rel="stylesheet" href="css/screen.css" />
     <script type="text/javascript" src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <!-- <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" title="no title" charset="utf-8">     -->
-    <!--<script src="js/libs/hammer.js"></script>
-    <script src="js/libs/jquery.specialevent.hammer.js"></script> -->
+
   </head>
   <body>
     <nav id="navigatie">
@@ -32,11 +31,13 @@
           <span class="icon-bar"></span>
         </a>
 
-        <h1><a href="#">Leaugevine Tournament</a></h1>
+        <h1><a href="#" class="webtitle">Leaugevine Tournament</a></h1>
 
       </header><!-- /header -->
 
-
+        <div id="pulldown">
+          <div id="spinner"></div>
+        </div>
 
 
 
@@ -50,10 +51,13 @@
 
       <article id="game">
 
+      <header>
         <h1 id="frisbee_game">Frisbee games</h1>
         <div id="filter">
           <label>Filter:</label>
         </div>
+      </header>
+
 
         <div class="table">
           <div id="games">
@@ -106,15 +110,16 @@
 
       <script type="text/template" id="gameTemplate">
 
-      <div class="game" data-element="<%= id %>">
-        <span class="date"><%= dateFormat(start_time, "ddd, mmm dS, yyyy, hh:MM") %></span>
+      <div class="game"  data-element="<%= id %>">
         <h2 class="model"><%= team_1.name %> - <%= team_2.name %></h2>
+        <time class="date"><%= dateFormat(start_time, "ddd, mmm dS, yyyy, hh:MM") %></time>
         <h2 class=""><%= team_1_score + " - " + team_2_score %></h2>
         <div>
           <form action="#" accept-charset="utf-8">
-            <label><input type="number" class="input" name="team_1_score" required></label>
-            <label><input type="number" class="input" name="team_2_score" required></label>
-            <button class="formSubmit">Verstuur</button>
+            <input type="number" class="input firstinput" name="team_1_score" required>
+            <span class="divider"> - </span>
+            <input type="number" class="input" name="team_2_score" required>
+            <button class="formSubmit" disabled>Verstuur</button>
           </form>
         </div>
       </div>
@@ -141,7 +146,6 @@
     <script src="js/libs/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="js/libs/bootstrap.min.js"></script>
     <script src="js/libs/json2.js"></script>
-
     <script src="js/libs/underscore-min.js"></script>
     <script src="js/libs/backbone-min.js"></script>
     <script src="js/libs/dateformat.js"></script>

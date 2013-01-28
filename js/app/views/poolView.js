@@ -40,8 +40,7 @@ FED.PoolView = Backbone.View.extend({
     // Attach event handlers to view elements
   events: {
     // "change #filter select": "setFilter",
-    "click #add": "addTeam",
-    "click #showForm": "showForm"
+    "click #add": "addTeam"
   },
 
 
@@ -142,9 +141,31 @@ FED.PoolView = Backbone.View.extend({
       }
   },
 
-  showForm: function (e) {
-    e.preventDefault();
-      this.$el.find("#addTeam").slideToggle();
+  updateCollection: function () {
+    var self = this;
+      this.$el.html("");
+
+      FED.hidePage();
+
+      self.$el.html(self.template);
+
+      // haal collectie op
+      this.collection = new FED.PoolCollection();
+      this.collection.fetch({
+            success: function(data) {
+                // console.log(self.collection)
+                FED.poolData = self.collection;
+                _.each(self.collection.models, function(model){
+                    model.url = model.get('resource_uri');
+                });
+                FED.showPage();
+                self.render();
+                // self.$el.find("#filter").append(self.createSelect());
+            },
+            error: function(){
+                    alert("Could not retreive data, please try again later")
+            }
+        });
   }
 });
 

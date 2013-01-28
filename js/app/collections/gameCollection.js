@@ -9,13 +9,4 @@ FED.Games = Backbone.Collection.extend({
 
 	}
 
-	// comparator : function(game) {
-	// 	return game.get("team1");
-	// }
-
-  // comparator: function (games) {
-  //   return games.get("start_time");
-  // }
-
-
 });
