@@ -53,6 +53,8 @@ background: #111;
 float: right;
 display: block;
 line-height: 0.6;
+-webkit-border-radius: 0px 0px 15px 15px;
+        border-radius: 0px 0px 15px 15px;
 }
 
 .nav-btn span{
