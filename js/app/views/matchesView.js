@@ -67,10 +67,10 @@ FED.MatchesView = Backbone.View.extend({
         this.$el.find("#matches").append(matchView.render().el).removeClass("hide");
     },
 
-    showForm: function(e){
+/*    showForm: function(e){
         e.preventDefault();
         $("#addFormn").slideToggle();
-    },
+    },*/
 
     addMatch: function(e){
         e.preventDefault();

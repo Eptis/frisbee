@@ -1,7 +1,8 @@
+//Collection View
+
 // define teams view
 FED.PoolView = Backbone.View.extend({
     el: $("#page"),
-    url: $("#page"),
     template: $("#poolTemplate").html(),
 
     // Initialize view *(backbone method)*
@@ -11,6 +12,7 @@ FED.PoolView = Backbone.View.extend({
 
       FED.hidePage();
 
+      // Element #page 
       self.$el.html(self.template);
 
       // haal collectie op
@@ -18,7 +20,7 @@ FED.PoolView = Backbone.View.extend({
       this.collection.fetch({
             success: function(data) {
                 // console.log(self.collection)
-                FED.poolData = self.collection;
+                FED.poolData = self.collection.toJSON();
                 _.each(self.collection.models, function(model){
                     model.url = model.get('resource_uri');
                 });
@@ -33,14 +35,7 @@ FED.PoolView = Backbone.View.extend({
 
       // Attach eventhandlers to collection
       this.collection.on("reset", this.render, this);
-      this.collection.on("add", this.renderTeam, this);
-      this.collection.on("remove", this.removeTeam, this);
-    },
-
-    // Attach event handlers to view elements
-  events: {
-    // "change #filter select": "setFilter",
-    "click #add": "addTeam"
+      
   },
 
 
@@ -66,7 +61,8 @@ FED.PoolView = Backbone.View.extend({
         this.$el.find("#pool_list").append(teamView.render().el);
       },
 
-      // Add team model
+  /*    
+  // Add team model
       addTeam: function (e) {
       e.preventDefault();
       var newModel = {};
@@ -139,7 +135,7 @@ FED.PoolView = Backbone.View.extend({
           });
           this.collection.reset(filtered);
       }
-  },
+  },   */
 
   updateCollection: function () {
     var self = this;

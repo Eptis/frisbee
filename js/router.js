@@ -14,7 +14,7 @@ $(function(){
         '*path': 'showSchedule'
         },
 
-        el: $("#page"),
+       // el: $("#page"),
 
         showSchedule: function (actions) {
             var self = this;
@@ -53,7 +53,7 @@ $(function(){
             setTimeout(function(){
                 var teamModel = new FED.TeamModel();
                 self.poolView = new FED.PoolView({model: teamModel});
-                $("#page").addClass("loaded");
+                // $("#page").addClass("loaded");
             }, 1000)
             FED.currentPage = 2;
 
@@ -64,6 +64,7 @@ $(function(){
     FED.app_router = new FED.AppRouter();
 
 
+    // Onthouden van vorige of volgende pagina
     Backbone.history.start({ pushState: false });
 
 

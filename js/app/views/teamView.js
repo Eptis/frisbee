@@ -1,3 +1,5 @@
+// Model View
+
 // # Define team view #
   FED.TeamView = Backbone.View.extend({
       // Define element (this.el)

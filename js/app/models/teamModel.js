@@ -1,3 +1,5 @@
+// Constructor model
+
  // define team model
   FED.TeamModel = Backbone.Model.extend({
     // Set model defaults *(backbone method)*
