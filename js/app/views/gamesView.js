@@ -74,15 +74,14 @@ FED.GamesView = Backbone.View.extend({
 
   updateGame: function(e){
         e.preventDefault();
-        $("#spinner").addClass("loading")
-        
+        $("#spinner").addClass("loading");        
 
         var game = $(e.currentTarget).parent(".game");
 
         var form = $(e.currentTarget).parent("form");
         var gameId = $(e.currentTarget).parent().parent().parent().data("element");
 
-        form.find(".formSubmit").attr("disabled", true)
+        form.find(".formSubmit").attr("disabled", true);
 
         var data = {};
 
@@ -97,13 +96,15 @@ FED.GamesView = Backbone.View.extend({
         data['set_number'] = 5;
 
 
+
+        // // nieuwe code
         
         // Instantiate a new model and stored it in the variable "newModel"
         // Pass the data to the new model as a parameter
         var newModel = new FED.GameModel(data);
 
         // Set the API url
-        newModel.url = 'https://api.leaguevine.com/v1/game_scores/';
+        newModel.url = FED.config.games_score_api_url;
         
         // Save a new model to the API, this is a "POST" request
         // the save function takes two parameters,
@@ -120,9 +121,9 @@ FED.GamesView = Backbone.View.extend({
 
                     $(e.currentTarget).parent().parent().parent().addClass("succes")
                     setTimeout(
-                        function(){
-                            $(e.currentTarget).parent().parent().parent().removeClass("succes")
-                        },1000)
+                    function(){
+                        $(e.currentTarget).parent().parent().parent().removeClass("succes")
+                    },1000)
                     
 
                 },
@@ -135,7 +136,7 @@ FED.GamesView = Backbone.View.extend({
                 },
                 // Define an authorization header to allow for posting to the API
                 headers: {
-                    Authorization: 'bearer bff958eccb'
+                    Authorization: FED.config.header_access
                 }
             }
         );
@@ -148,7 +149,7 @@ FED.GamesView = Backbone.View.extend({
 
 
 
-
+        // oude code
 
         
         /*var model = this.collection.get(gameId);
