@@ -74,23 +74,84 @@ FED.GamesView = Backbone.View.extend({
 
   updateGame: function(e){
         e.preventDefault();
+        $("#spinner").addClass("loading")
+        
 
         var game = $(e.currentTarget).parent(".game");
 
         var form = $(e.currentTarget).parent("form");
         var gameId = $(e.currentTarget).parent().parent().parent().data("element");
 
+        form.find(".formSubmit").attr("disabled", true)
 
-        var newModel = {};
+        var data = {};
 
         $(e.currentTarget).parent("form").find("input").each(function (i, el) {
-              newModel[el.name] = $(el).val();
+             data[el.name] = $(el).val();
         });
 
 
+        data['game_id'] = gameId;
+        data['is_final'] = "False";
+        data['what_happened'] = "...";
+        data['set_number'] = 5;
 
 
-        var model = this.collection.get(gameId);
+        
+        // Instantiate a new model and stored it in the variable "newModel"
+        // Pass the data to the new model as a parameter
+        var newModel = new FED.GameModel(data);
+
+        // Set the API url
+        newModel.url = 'https://api.leaguevine.com/v1/game_scores/';
+        
+        // Save a new model to the API, this is a "POST" request
+        // the save function takes two parameters,
+        
+        newModel.save(
+            // The first parameter is the data object
+            newModel.toJSON(), {
+                // The second parameter takes request options
+                success: function(data) {
+                    // On succes set the new url for the model
+                    console.log("succes")
+                    newModel.url = newModel.get('resource_uri');
+                    $("#spinner").removeClass("loading")
+
+                    $(e.currentTarget).parent().parent().parent().addClass("succes")
+                    setTimeout(
+                        function(){
+                            $(e.currentTarget).parent().parent().parent().removeClass("succes")
+                        },1000)
+                    
+
+                },
+                error: function(data) {
+                    // On error log the error in the console
+                    console.log('error');
+                    $("#spinner").removeClass("loading")
+                    $(e.currentTarget).parent().parent().parent().addClass("error")
+                    alert("We could not process your scores, please try again later")
+                },
+                // Define an authorization header to allow for posting to the API
+                headers: {
+                    Authorization: 'bearer bff958eccb'
+                }
+            }
+        );
+
+
+
+
+
+
+
+
+
+
+
+        
+        /*var model = this.collection.get(gameId);
 
         var data = {
             id: gameId,
@@ -102,13 +163,15 @@ FED.GamesView = Backbone.View.extend({
 
         model.set(data)
 
-
         // Update a model to the API, this is a "PUT" request
         // the save function takes two parameters,
         // console.log(model)
         model.url = model.get('resource_uri');
 
         var self = this;
+
+
+
 
         model.save(
             // The first parameter is the data object
@@ -132,7 +195,7 @@ FED.GamesView = Backbone.View.extend({
                     Authorization: FED.config.header_access
                 }
             }
-        );
+        );*/
     },
 
 

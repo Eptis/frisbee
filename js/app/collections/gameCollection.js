@@ -7,6 +7,10 @@ FED.Games = Backbone.Collection.extend({
   },
 	initizialize:function() {
 
-	}
+	},
+
+    comparator : function(games) {
+      return games.get("start_time");
+    }
 
 });
